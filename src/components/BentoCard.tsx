@@ -21,9 +21,16 @@ const SPAN_CLASSES = {
 } as const;
 
 const ANIMATION_CONFIG = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] },
+  desktop: {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  },
+  mobile: {
+    initial: { opacity: 0, y: 8 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+  },
 } as const;
 
 export const BentoCard = memo(function BentoCard({
@@ -36,9 +43,10 @@ export const BentoCard = memo(function BentoCard({
 }: BentoCardProps) {
   const { ref, isVisible } = useScrollReveal(0.1, '-50px');
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // Magnetic cursor effect
+  // Magnetic cursor effect (desktop only)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springConfig = { damping: 25, stiffness: 200 };
@@ -46,7 +54,19 @@ export const BentoCard = memo(function BentoCard({
   const y = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    if (!interactive || !cardRef.current) return;
+    // Detect mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || ('ontouchstart' in window));
+    };
+    checkMobile();
+    
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Disable magnetic effect on mobile for performance
+    if (!interactive || !cardRef.current || isMobile) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!cardRef.current) return;
@@ -75,7 +95,7 @@ export const BentoCard = memo(function BentoCard({
       card.removeEventListener('mousemove', handleMouseMove);
       card.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [interactive, mouseX, mouseY]);
+  }, [interactive, mouseX, mouseY, isMobile]);
 
   const cardClasses = useMemo(
     () => {
@@ -91,20 +111,22 @@ export const BentoCard = memo(function BentoCard({
         border
         rounded-2xl
         transition-smooth
-        will-change-transform
+        ${!isMobile ? 'will-change-transform' : ''}
         ${interactive ? 'cursor-pointer' : ''}
         ${className}
       `.trim();
     },
-    [span, interactive, className]
+    [span, interactive, className, isMobile]
   );
+
+  const config = isMobile ? ANIMATION_CONFIG.mobile : ANIMATION_CONFIG.desktop;
 
   const animationVariants = useMemo(
     () => ({
-      initial: ANIMATION_CONFIG.initial,
-      animate: isVisible ? ANIMATION_CONFIG.animate : ANIMATION_CONFIG.initial,
+      initial: config.initial,
+      animate: isVisible ? config.animate : config.initial,
     }),
-    [isVisible]
+    [isVisible, config]
   );
 
   return (
@@ -116,10 +138,10 @@ export const BentoCard = memo(function BentoCard({
         cardRef.current = node;
       }}
       {...animationVariants}
-      transition={{ ...ANIMATION_CONFIG.transition, delay }}
+      transition={{ ...config.transition, delay: isMobile ? delay * 0.6 : delay }}
       style={{
-        x: interactive ? x : 0,
-        y: interactive ? y : 0,
+        x: interactive && !isMobile ? x : 0,
+        y: interactive && !isMobile ? y : 0,
         background: isHovered && interactive
           ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(99, 102, 241, 0.05) 100%)'
           : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.95) 100%)',
@@ -130,13 +152,13 @@ export const BentoCard = memo(function BentoCard({
           ? '0 20px 60px -12px rgba(0, 0, 0, 0.15), 0 8px 24px -8px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
           : '0 2px 12px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
       }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={interactive ? { scale: 1.02 } : undefined}
+      onHoverStart={() => !isMobile && setIsHovered(true)}
+      onHoverEnd={() => !isMobile && setIsHovered(false)}
+      whileHover={interactive && !isMobile ? { scale: 1.02 } : undefined}
       className={cardClasses}
     >
-      {/* Shimmer effect on hover */}
-      {interactive && (
+      {/* Shimmer effect on hover - Desktop only */}
+      {interactive && !isMobile && (
         <motion.div
           className="absolute inset-0 pointer-events-none"
           animate={{
@@ -170,8 +192,8 @@ export const BentoCard = memo(function BentoCard({
         />
       )}
 
-      {/* Interactive radial gradient that follows cursor */}
-      {interactive && (
+      {/* Interactive radial gradient - Desktop only */}
+      {interactive && !isMobile && (
         <motion.div
           className="absolute inset-0 opacity-0 pointer-events-none rounded-2xl"
           animate={{ opacity: isHovered ? 1 : 0 }}
@@ -183,16 +205,17 @@ export const BentoCard = memo(function BentoCard({
         />
       )}
 
-      {/* Subtle noise texture */}
+      {/* Subtle noise texture - Reduced opacity on mobile */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.015] mix-blend-overlay"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay"
         style={{
+          opacity: isMobile ? 0.01 : 0.015,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Subtle grid pattern on hover */}
-      {interactive && (
+      {/* Subtle grid pattern on hover - Desktop only */}
+      {interactive && !isMobile && (
         <motion.div
           className="absolute inset-0 pointer-events-none rounded-2xl"
           animate={{ opacity: isHovered ? 0.02 : 0 }}
@@ -210,8 +233,8 @@ export const BentoCard = memo(function BentoCard({
       {/* Content */}
       <div className="relative z-10 h-full p-6 md:p-8">{children}</div>
 
-      {/* Corner accent - appears on hover */}
-      {interactive && (
+      {/* Corner accent - Desktop only */}
+      {interactive && !isMobile && (
         <motion.div
           className="absolute top-0 right-0 w-24 h-24 rounded-bl-full opacity-0 pointer-events-none"
           animate={{ opacity: isHovered ? 0.08 : 0 }}

@@ -308,13 +308,24 @@ export const Hero = memo(function Hero() {
                   onClick={handleScrollTo('tokens')}
                   whileHover={{ x: 4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  animate={{
+                    backgroundPosition: ['0% 50%', '25% 60%', '50% 40%', '75% 55%', '100% 50%', '75% 45%', '50% 60%', '25% 40%', '0% 50%'],
+                  }}
+                  transition={{
+                    backgroundPosition: {
+                      duration: 8,
+                      repeat: Infinity,
+                      ease: [0.45, 0.05, 0.55, 0.95],
+                    },
+                  }}
                   className="inline-flex items-center gap-3 px-10 py-5 border transition-smooth will-change-transform"
                   style={{
-                    backgroundColor: 'var(--bg-canvas)',
-                    borderColor: 'var(--border-medium)',
-                    color: 'var(--text-primary)',
+                    background: 'linear-gradient(135deg, #10B981 0%, #059669 15%, #6366F1 30%, #4F46E5 45%, #10B981 60%, #34D399 75%, #6366F1 90%, #10B981 100%)',
+                    backgroundSize: '300% 300%',
+                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                    color: '#FFFFFF',
                     borderRadius: 'var(--radius-sm)',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   <span className="label-lg tracking-wide">View Tokens</span>

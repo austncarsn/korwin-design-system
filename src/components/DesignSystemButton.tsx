@@ -20,7 +20,7 @@ const variantStyles = {
     disabled: 'disabled:opacity-50 disabled:cursor-not-allowed',
   },
   secondary: {
-    base: 'bg-[var(--action-secondary)] text-[var(--text-primary)] border border-transparent relative overflow-hidden',
+    base: 'bg-[var(--action-secondary)] text-white border border-transparent relative overflow-hidden',
     hover: 'hover:bg-[var(--action-secondary-hover)]',
     active: 'active:bg-[var(--action-secondary-active)]',
     shadow: 'shadow-sm hover:shadow-md',

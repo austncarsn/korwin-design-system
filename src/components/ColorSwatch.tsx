@@ -41,34 +41,39 @@ export const ColorSwatch = memo(function ColorSwatch({
       aria-label={`Copy ${name} color ${value}`}
     >
       <div
-        className={`relative w-full ${height} rounded-xl mb-3 border overflow-hidden transition-all duration-300`}
+        className={`relative w-full ${height} rounded-xl mb-3 border-2 overflow-hidden transition-all duration-300`}
         style={{
           backgroundColor: value,
-          borderColor: isHovered ? 'rgba(16, 185, 129, 0.3)' : 'rgba(0, 0, 0, 0.08)',
+          borderColor: isHovered ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 0, 0, 0.12)',
           boxShadow: isHovered
-            ? '0 12px 40px -8px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(16, 185, 129, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-            : '0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+            ? '0 20px 50px -12px rgba(0, 0, 0, 0.35), 0 8px 20px -6px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4)'
+            : '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.2)',
+          transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
         }}
       >
-        {/* Shimmer effect */}
-        <motion.div
+        {/* Radial gradient overlay for depth - lighter in center, darker at edges */}
+        <div
           className="absolute inset-0 pointer-events-none"
-          animate={{
-            background: isHovered
-              ? 'linear-gradient(110deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%, transparent 100%)'
-              : 'transparent',
-            backgroundPosition: isHovered ? ['200% 0%', '-200% 0%'] : '0% 0%',
-          }}
-          transition={{
-            backgroundPosition: {
-              duration: 1.2,
-              repeat: Infinity,
-              ease: 'linear',
-            },
-            background: { duration: 0.3 },
-          }}
           style={{
-            backgroundSize: '200% 100%',
+            background: 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.2) 0%, transparent 70%)',
+            opacity: isHovered ? 1 : 0.6,
+            transition: 'opacity 0.3s ease',
+          }}
+        />
+
+        {/* Subtle vignette for edges */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.1) 100%)',
+          }}
+        />
+
+        {/* Top edge highlight */}
+        <div
+          className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%)',
           }}
         />
 

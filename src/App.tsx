@@ -33,7 +33,24 @@ import {
   Zap,
   Shield,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
+
+// Lazy load heavy sections for better initial load
+const LazyButtonsSection = lazy(() => import('./components/ButtonsSection').then(m => ({ default: m.ButtonsSection })));
+const LazyFormInputsSection = lazy(() => import('./components/FormInputsSection').then(m => ({ default: m.FormInputsSection })));
+const LazyCardsSection = lazy(() => import('./components/CardsSection').then(m => ({ default: m.CardsSection })));
+
+// Loading skeleton component
+const SectionSkeleton = () => (
+  <div className="py-12 sm:py-16 md:py-20 lg:py-32 animate-pulse">
+    <div className="h-8 bg-gray-200 rounded w-1/3 mb-6" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
+    <div className="h-4 bg-gray-100 rounded w-2/3 mb-12" style={{ backgroundColor: 'var(--bg-muted)' }}></div>
+    <div className="grid gap-6">
+      <div className="h-48 bg-gray-100 rounded-xl" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
+      <div className="h-48 bg-gray-100 rounded-xl" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
+    </div>
+  </div>
+);
 
 // Memoized constants
 const BASE_COLORS = [
@@ -95,31 +112,97 @@ const CODE_EXAMPLES = {
   "color": {
     "base": {
       "ash-50": "#FAFAFA",
-      "emerald-500": "#10B981",
-      "indigo-500": "#6366F1",
-      "amber-500": "#F59E0B",
+      "ash-100": "#F4F4F5",
+      "ash-200": "#E4E4E7",
       "ash-950": "#09090B",
+      "emerald-500": "#10B981",
+      "emerald-600": "#059669",
+      "indigo-500": "#6366F1",
+      "indigo-600": "#4F46E5",
+      "amber-500": "#F59E0B",
       "white": "#FFFFFF"
     },
     "semantic": {
-      "bg": {
-        "canvas": "{color.base.white}",
-        "surface": "{color.base.white}",
-        "subtle": "#F4F4F5"
+      "background": {
+        "canvas": "#FAFAFA",
+        "surface": "#FFFFFF",
+        "subtle": "#F4F4F5",
+        "inverse": "#FAFAFA"
       },
       "text": {
-        "primary": "{color.base.ash-950}",
+        "primary": "#09090B",
         "secondary": "#52525B",
-        "tertiary": "#71717A"
+        "tertiary": "#71717A",
+        "inverse": "#FAFAFA",
+        "on-color": "#FFFFFF"
       },
       "action": {
-        "primary": "{color.base.emerald-500}",
-        "primary-hover": "#148F77",
-        "primary-pressed": "#0E7461"
+        "primary": "#10B981",
+        "primary-hover": "#059669",
+        "primary-active": "#047857",
+        "secondary": "#6366F1",
+        "secondary-hover": "#4F46E5",
+        "secondary-active": "#4338CA"
+      },
+      "border": {
+        "subtle": "rgba(0, 0, 0, 0.04)",
+        "default": "rgba(0, 0, 0, 0.08)",
+        "medium": "rgba(0, 0, 0, 0.12)",
+        "strong": "rgba(0, 0, 0, 0.16)"
+      },
+      "state": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#F43F5E",
+        "info": "#6366F1"
       }
     }
+  },
+  "spacing": {
+    "base-unit": "4px",
+    "scale": {
+      "0": "0px",
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "20px",
+      "6": "24px",
+      "8": "32px",
+      "10": "40px",
+      "12": "48px",
+      "16": "64px",
+      "20": "80px",
+      "24": "96px"
+    }
+  },
+  "typography": {
+    "font-family": {
+      "display": "Instrument Serif",
+      "body": "Inter"
+    },
+    "line-height": {
+      "tight": "1.1",
+      "base": "1.5",
+      "relaxed": "1.75"
+    }
+  },
+  "elevation": {
+    "shadow": {
+      "sm": "0 1px 3px rgba(0, 0, 0, 0.04)",
+      "md": "0 4px 6px rgba(0, 0, 0, 0.05)",
+      "lg": "0 10px 15px rgba(0, 0, 0, 0.06)",
+      "xl": "0 20px 25px rgba(0, 0, 0, 0.07)"
+    }
+  },
+  "radius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "full": "9999px"
   }
-}`,
+}`, 
 } as const;
 
 export default function App() {
@@ -888,21 +971,27 @@ export default function App() {
 
         {/* Buttons Component Section - Section 04 */}
         <div className="py-12 sm:py-16 md:py-20 lg:py-32">
-          <ButtonsSection />
+          <Suspense fallback={<SectionSkeleton />}>
+            <LazyButtonsSection />
+          </Suspense>
         </div>
 
         <EditorialDivider variant="ornament" />
 
         {/* Form Inputs Component Section - Section 05 */}
         <div className="py-12 sm:py-16 md:py-20 lg:py-32">
-          <FormInputsSection />
+          <Suspense fallback={<SectionSkeleton />}>
+            <LazyFormInputsSection />
+          </Suspense>
         </div>
 
         <EditorialDivider variant="accent" />
 
         {/* Cards Component Section - Section 06 */}
         <div className="py-12 sm:py-16 md:py-20 lg:py-32">
-          <CardsSection />
+          <Suspense fallback={<SectionSkeleton />}>
+            <LazyCardsSection />
+          </Suspense>
         </div>
 
         <EditorialDivider variant="ornament" />
