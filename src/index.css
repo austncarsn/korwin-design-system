@@ -451,18 +451,18 @@
     --color-sky-800: #075985;
     --color-sky-900: #0c4a6e;
     --color-sky-950: #082f49;
-    --bg-canvas: #fff;
-    --bg-canvas-subtle: #fafafa;
+    --bg-canvas: #fafafa;
+    --bg-canvas-subtle: #f5f5f5;
     --bg-surface: #fff;
     --bg-surface-raised: #fff;
     --bg-surface-overlay: #fffffff2;
     --bg-subtle: #f4f4f5;
     --bg-muted: #e4e4e7;
-    --bg-inverse: #09090b;
-    --bg-inverse-subtle: #18181b;
-    --bg-inverse-muted: #27272a;
-    --bg-gradient-radial: radial-gradient(circle at top, #fafafa 0%, #fff 100%);
-    --bg-gradient-mesh: radial-gradient(at 0% 0%, #10b98108 0px, transparent 50%), radial-gradient(at 100% 0%, #6366f105 0px, transparent 50%), radial-gradient(at 100% 100%, #f59e0b05 0px, transparent 50%), radial-gradient(at 0% 100%, #10b98105 0px, transparent 50%);
+    --bg-inverse: #fafafa;
+    --bg-inverse-subtle: #fff;
+    --bg-inverse-muted: #f9f9f9;
+    --bg-gradient-radial: radial-gradient(circle at top, #fff 0%, #fafafa 100%);
+    --bg-gradient-mesh: radial-gradient(at 0% 0%, #10b98105 0px, transparent 50%), radial-gradient(at 100% 0%, #6366f104 0px, transparent 50%), radial-gradient(at 100% 100%, #f59e0b04 0px, transparent 50%), radial-gradient(at 0% 100%, #10b98104 0px, transparent 50%);
     --text-primary: #09090b;
     --text-secondary: #52525b;
     --text-tertiary: #71717a;
@@ -501,24 +501,24 @@
     --border-error: #f43f5e80;
     --border-error-ring: #f43f5e33;
     --state-success: #10b981;
-    --state-success-bg: #ecfdf5;
-    --state-success-bg-subtle: #f0fdf4;
-    --state-success-border: #a7f3d0;
+    --state-success-bg: #10b9811a;
+    --state-success-bg-subtle: #10b9810d;
+    --state-success-border: #10b9814d;
     --state-success-text: #065f46;
     --state-warning: #f59e0b;
-    --state-warning-bg: #fffbeb;
-    --state-warning-bg-subtle: #fefce8;
-    --state-warning-border: #fde68a;
+    --state-warning-bg: #f59e0b1a;
+    --state-warning-bg-subtle: #f59e0b0d;
+    --state-warning-border: #f59e0b4d;
     --state-warning-text: #92400e;
     --state-error: #f43f5e;
-    --state-error-bg: #fff1f2;
-    --state-error-bg-subtle: #fff5f5;
-    --state-error-border: #fecdd3;
+    --state-error-bg: #f43f5e1a;
+    --state-error-bg-subtle: #f43f5e0d;
+    --state-error-border: #f43f5e4d;
     --state-error-text: #9f1239;
     --state-info: #6366f1;
-    --state-info-bg: #eef2ff;
-    --state-info-bg-subtle: #f0f9ff;
-    --state-info-border: #c7d2fe;
+    --state-info-bg: #6366f11a;
+    --state-info-bg-subtle: #6366f10d;
+    --state-info-border: #6366f14d;
     --state-info-text: #3730a3;
     --shadow-xs: 0 1px 2px 0 #00000005;
     --shadow-sm: 0 1px 3px 0 #0000000a, 0 1px 2px -1px #0000000a;
@@ -2179,10 +2179,6 @@
     opacity: .1;
   }
 
-  .opacity-15 {
-    opacity: .15;
-  }
-
   .opacity-20 {
     opacity: .2;
   }
@@ -2195,12 +2191,20 @@
     opacity: .4;
   }
 
+  .opacity-\[0\.02\] {
+    opacity: .02;
+  }
+
   .opacity-\[0\.03\] {
     opacity: .03;
   }
 
   .opacity-\[0\.04\] {
     opacity: .04;
+  }
+
+  .opacity-\[0\.05\] {
+    opacity: .05;
   }
 
   .opacity-\[0\.06\] {
@@ -3001,7 +3005,7 @@
 
   .glass-strong {
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    background: #fffc;
+    background: #000c;
   }
 
   .bg-gradient-radial {

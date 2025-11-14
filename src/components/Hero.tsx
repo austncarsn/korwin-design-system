@@ -108,22 +108,22 @@ export const Hero = memo(function Hero() {
         className="relative px-6 md:px-12 lg:px-20 py-32 md:py-40 lg:py-48 w-full overflow-hidden"
         style={{
           background: `
-            radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.18) 0%, transparent 40%),
-            radial-gradient(circle at 80% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 45%),
-            radial-gradient(circle at 60% 80%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
-            radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 70%),
-            linear-gradient(135deg, #0A0F1C 0%, #0D1421 50%, #111827 100%)
+            radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+            radial-gradient(circle at 80% 30%, rgba(99, 102, 241, 0.03) 0%, transparent 45%),
+            radial-gradient(circle at 60% 80%, rgba(245, 158, 11, 0.03) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(250, 250, 250, 1) 0%, rgba(255, 255, 255, 1) 70%),
+            linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 50%, #F9F9F9 100%)
           `,
-          boxShadow: 'inset 0 1px 0 0 rgba(16, 185, 129, 0.1)',
+          boxShadow: 'inset 0 1px 0 0 rgba(0, 0, 0, 0.04)',
         }}
       >
         {/* Enhanced Court Grid Pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          className="absolute inset-0 opacity-[0.02] pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(16, 185, 129, 0.3) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(16, 185, 129, 0.3) 1px, transparent 1px)
+              linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px)
             `,
             backgroundSize: '120px 120px',
           }}
@@ -131,21 +131,21 @@ export const Hero = memo(function Hero() {
 
         {/* Animated Gradient Orbs */}
         <div 
-          className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] opacity-20 animate-pulse pointer-events-none"
+          className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full blur-[120px] opacity-[0.08] animate-pulse pointer-events-none"
           style={{
-            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%)',
             animation: 'float 20s ease-in-out infinite',
           }}
         />
         <div 
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-15 pointer-events-none"
+          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-[100px] opacity-[0.06] pointer-events-none"
           style={{
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%)',
             animation: 'float 25s ease-in-out infinite reverse',
           }}
         />
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[90px] opacity-10 pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[90px] opacity-[0.05] pointer-events-none"
           style={{
             background: 'radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%)',
             animation: 'float 30s ease-in-out infinite',
@@ -154,7 +154,7 @@ export const Hero = memo(function Hero() {
 
         {/* Noise Texture Overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.02] pointer-events-none mix-blend-overlay"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
@@ -165,16 +165,16 @@ export const Hero = memo(function Hero() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: `
-              radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.3) 100%)
+              radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0, 0, 0, 0.01) 100%)
             `,
           }}
         />
 
         {/* Court Center Line Accent */}
         <div 
-          className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] opacity-[0.06] pointer-events-none"
+          className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] opacity-[0.04] pointer-events-none"
           style={{
-            background: 'linear-gradient(to bottom, transparent 0%, rgba(16, 185, 129, 0.8) 20%, rgba(16, 185, 129, 0.8) 80%, transparent 100%)',
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(16, 185, 129, 0.4) 20%, rgba(16, 185, 129, 0.4) 80%, transparent 100%)',
           }}
         />
 
@@ -191,12 +191,12 @@ export const Hero = memo(function Hero() {
               >
                 <div 
                   className="h-px flex-1 max-w-[60px] sm:max-w-[80px]"
-                  style={{ backgroundColor: 'var(--border-inverse)' }}
+                  style={{ backgroundColor: 'var(--border-default)' }}
                 />
                 <span 
                   className="overline tracking-[0.2em]"
                   style={{ 
-                    color: 'color-mix(in srgb, var(--text-inverse) 70%, transparent)',
+                    color: 'color-mix(in srgb, var(--text-primary) 60%, transparent)',
                     fontSize: 'clamp(9px, 1.5vw, 11px)',
                   }}
                 >
@@ -210,7 +210,7 @@ export const Hero = memo(function Hero() {
                 transition={{ ...ANIMATION_CONFIG.transition, delay: 0.2 }}
                 className="mb-8 sm:mb-12 lg:mb-16"
                 style={{ 
-                  color: 'var(--text-inverse)',
+                  color: 'var(--text-primary)',
                   fontFamily: 'var(--font-display)',
                   fontSize: 'clamp(48px, 10vw, 120px)',
                   lineHeight: '0.9',
@@ -242,7 +242,7 @@ export const Hero = memo(function Hero() {
                 <p
                   className="mb-6 sm:mb-8"
                   style={{ 
-                    color: 'color-mix(in srgb, var(--text-inverse) 85%, transparent)',
+                    color: 'color-mix(in srgb, var(--text-primary) 90%, transparent)',
                     fontSize: 'clamp(18px, 3vw, 24px)',
                     lineHeight: '1.6',
                     fontWeight: 300,
@@ -253,7 +253,7 @@ export const Hero = memo(function Hero() {
                 </p>
                 <p
                   style={{ 
-                    color: 'color-mix(in srgb, var(--text-inverse) 60%, transparent)',
+                    color: 'color-mix(in srgb, var(--text-secondary) 85%, transparent)',
                     fontSize: 'clamp(14px, 2vw, 16px)',
                     lineHeight: '1.7',
                     fontWeight: 400,
@@ -272,13 +272,14 @@ export const Hero = memo(function Hero() {
                 <motion.a
                   href="#overview"
                   onClick={handleScrollTo('overview')}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ x: 4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="group inline-flex items-center gap-4 px-10 py-5 transition-smooth will-change-transform"
                   style={{
                     backgroundColor: 'var(--action-primary)',
-                    color: 'var(--bg-inverse)',
+                    color: '#FFFFFF',
                     borderRadius: 'var(--radius-sm)',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08)',
                   }}
                 >
                   <span className="label-lg tracking-wide">Explore System</span>
@@ -291,14 +292,15 @@ export const Hero = memo(function Hero() {
                 <motion.a
                   href="#tokens"
                   onClick={handleScrollTo('tokens')}
-                  whileHover={{ x: 4 }}
+                  whileHover={{ x: 4, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="inline-flex items-center gap-3 px-10 py-5 border transition-smooth will-change-transform"
                   style={{
-                    backgroundColor: 'transparent',
-                    borderColor: 'var(--border-inverse-strong)',
-                    color: 'var(--text-inverse)',
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-medium)',
+                    color: 'var(--text-primary)',
                     borderRadius: 'var(--radius-sm)',
+                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                   }}
                 >
                   <span className="label-lg tracking-wide">View Tokens</span>
@@ -330,7 +332,7 @@ export const Hero = memo(function Hero() {
                     <div 
                       className="absolute -left-6 top-0 bottom-0 w-px"
                       style={{
-                        background: 'linear-gradient(to bottom, transparent, var(--border-inverse), transparent)',
+                        background: 'linear-gradient(to bottom, transparent, var(--border-default), transparent)',
                       }}
                     />
                     
@@ -338,8 +340,9 @@ export const Hero = memo(function Hero() {
                       <div
                         className="w-14 h-14 flex items-center justify-center"
                         style={{
-                          backgroundColor: 'color-mix(in srgb, var(--action-primary) 12%, transparent)',
+                          backgroundColor: 'color-mix(in srgb, var(--action-primary) 8%, transparent)',
                           borderRadius: 'var(--radius-md)',
+                          border: '1px solid color-mix(in srgb, var(--action-primary) 15%, transparent)',
                         }}
                       >
                         <Icon
@@ -351,7 +354,7 @@ export const Hero = memo(function Hero() {
                       <div>
                         <div
                           style={{
-                            color: 'var(--text-inverse)',
+                            color: 'var(--text-primary)',
                             fontFamily: 'var(--font-display)',
                             fontSize: '56px',
                             lineHeight: '1',
@@ -364,7 +367,7 @@ export const Hero = memo(function Hero() {
                         <div
                           className="label-sm tracking-wider"
                           style={{
-                            color: 'color-mix(in srgb, var(--text-inverse) 55%, transparent)',
+                            color: 'color-mix(in srgb, var(--text-secondary) 80%, transparent)',
                           }}
                         >
                           {label}
