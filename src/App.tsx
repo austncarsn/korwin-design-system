@@ -726,20 +726,20 @@ export default function App() {
               </div>
 
               <div className="space-y-6 sm:space-y-[var(--space-8)]">
-                <TypeSpecimen className="display-2xl" label="Display 2XL" example="The quick brown fox" specs="72px / 80px · -2%" />
-                <TypeSpecimen className="display-xl" label="Display XL" example="jumps over the lazy dog" specs="56px / 64px · -1.5%" />
-                <TypeSpecimen className="display-l" label="Display L" example="The five boxing wizards" specs="48px / 56px · -1%" />
-                <TypeSpecimen element="h1" label="Heading 1" example="Pack my box with five" specs="36px / 44px · -0.5%" />
-                <TypeSpecimen element="h2" label="Heading 2" example="dozen liquor jugs" specs="28px / 36px · 0%" />
-                <TypeSpecimen element="h3" label="Heading 3" example="How vexingly quick daft" specs="24px / 32px · 0%" />
-                <TypeSpecimen element="h4" label="Heading 4" example="zebras jump" specs="20px / 28px · 0%" />
-                <TypeSpecimen element="h5" label="Heading 5" example="Sphinx of black quartz" specs="18px / 24px · 0%" />
-                <TypeSpecimen className="body-l" label="Body Large" example="The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs." specs="18px / 28px · 0%" />
-                <TypeSpecimen className="body-m" label="Body Medium" example="How vexingly quick daft zebras jump! The five boxing wizards jump quickly at the exam." specs="16px / 24px · 0%" />
-                <TypeSpecimen className="body-s" label="Body Small" example="Sphinx of black quartz, judge my vow. Two driven jocks help fax my big quiz with style." specs="14px / 20px · 0%" />
-                <TypeSpecimen className="label-l" label="Label Large" example="QUICK BROWN FOX" specs="14px / 20px · 0% · 600" />
-                <TypeSpecimen className="label-m" label="Label Medium" example="JUMPS OVER DOG" specs="12px / 16px · 0% · 600" />
-                <TypeSpecimen className="caption" label="Caption" example="Pack my box with five dozen liquor jugs" specs="12px / 16px · 0% · 400" />
+                <TypeSpecimen className="display-2xl" label="Display 2XL" example="The quick brown fox" specs="Instrument Serif · 80px / 76px · -3% · 400" />
+                <TypeSpecimen className="display-xl" label="Display XL" example="jumps over the lazy dog" specs="Instrument Serif · 64px / 64px · -2.5% · 400" />
+                <TypeSpecimen className="display-l" label="Display L" example="The five boxing wizards" specs="Instrument Serif · 52px / 55px · -2% · 400" />
+                <TypeSpecimen element="h1" label="Heading 1" example="Pack my box with five" specs="Inter · 48px / 53px · -2% · 700" />
+                <TypeSpecimen element="h2" label="Heading 2" example="dozen liquor jugs" specs="Inter · 36px / 41px · -1.5% · 700" />
+                <TypeSpecimen element="h3" label="Heading 3" example="How vexingly quick daft" specs="Inter · 28px / 35px · -1% · 600" />
+                <TypeSpecimen element="h4" label="Heading 4" example="zebras jump" specs="Inter · 22px / 29px · -0.5% · 600" />
+                <TypeSpecimen element="h5" label="Heading 5" example="Sphinx of black quartz" specs="Inter · 18px / 25px · -0.3% · 600" />
+                <TypeSpecimen className="body-l" label="Body Large" example="The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs." specs="Inter · 18px / 30px · -0.3% · 400" />
+                <TypeSpecimen className="body-m" label="Body Medium" example="How vexingly quick daft zebras jump! The five boxing wizards jump quickly at the exam." specs="Inter · 16px / 26px · 0% · 400" />
+                <TypeSpecimen className="body-s" label="Body Small" example="Sphinx of black quartz, judge my vow. Two driven jocks help fax my big quiz with style." specs="Inter · 14px / 22px · 0% · 400" />
+                <TypeSpecimen className="label-l" label="Label Large" example="QUICK BROWN FOX" specs="Inter · 15px / 21px · +0.5% · 600" />
+                <TypeSpecimen className="label-m" label="Label Medium" example="JUMPS OVER DOG" specs="Inter · 14px / 19px · +1% · 600" />
+                <TypeSpecimen className="caption" label="Caption" example="Pack my box with five dozen liquor jugs" specs="Inter · 13px / 18px · 0% · 400" />
               </div>
             </Section>
           </RevealSection>
