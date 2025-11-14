@@ -16,7 +16,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
       <div className="mt-12 sm:mt-16 space-y-12">
         {/* Primary Buttons */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Primary Actions</h3>
+          <h4 className="mb-6">Primary Actions</h4>
           <UIExample
             title="Primary Button Variants"
             description="High-emphasis buttons for primary actions"
@@ -69,7 +69,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Secondary Buttons */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Secondary Actions</h3>
+          <h4 className="mb-6">Secondary Actions</h4>
           <UIExample
             title="Secondary Button Variants"
             description="Medium-emphasis buttons for secondary actions"
@@ -122,7 +122,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Button Sizes */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Size Variants</h3>
+          <h4 className="mb-6">Size Variants</h4>
           <UIExample
             title="Button Sizes"
             description="From compact to large, sized for every context"
@@ -176,7 +176,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Ghost Buttons */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Ghost & Text Buttons</h3>
+          <h4 className="mb-6">Ghost & Text Buttons</h4>
           <UIExample
             title="Low-Emphasis Buttons"
             description="Subtle buttons for tertiary actions"

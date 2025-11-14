@@ -17,7 +17,7 @@ export const CardsSection = memo(function CardsSection() {
       <div className="mt-12 sm:mt-16 space-y-12">
         {/* Basic Cards */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Basic Cards</h3>
+          <h4 className="mb-6">Basic Cards</h4>
           <UIExample
             title="Standard Card Layout"
             description="Clean cards with consistent padding and borders"
@@ -54,7 +54,7 @@ export const CardsSection = memo(function CardsSection() {
 
         {/* Icon Cards */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Icon Cards</h3>
+          <h4 className="mb-6">Icon Cards</h4>
           <UIExample
             title="Cards with Icons"
             description="Feature cards with icon headers"
@@ -137,7 +137,7 @@ export const CardsSection = memo(function CardsSection() {
 
         {/* Interactive Cards */}
         <div>
-          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Interactive Cards</h3>
+          <h4 className="mb-6">Interactive Cards</h4>
           <UIExample
             title="Clickable Cards"
             description="Cards with hover states and click interactions"

@@ -1,31 +1,43 @@
 import { memo, useEffect, useState } from 'react';
-import { motion, useSpring, useTransform } from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
 import { useScrollProgress } from '../hooks/useScrollProgress';
 
 export const ScrollProgress = memo(function ScrollProgress() {
   const progress = useScrollProgress();
   const [isMobile, setIsMobile] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const progressValue = useMotionValue(0);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768 || ('ontouchstart' in window));
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
     };
     checkMobile();
     
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = () => setReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
-  // Lighter spring physics on mobile for better performance
-  const smoothProgress = useSpring(progress, {
-    damping: isMobile ? 30 : 25,
-    stiffness: isMobile ? 150 : 120,
-    mass: isMobile ? 0.2 : 0.3,
-    restDelta: 0.001,
-    restSpeed: 0.001,
-  });
+  // Update motion value when progress changes
+  useEffect(() => {
+    progressValue.set(progress / 100);
+  }, [progress, progressValue]);
 
-  const scaleX = useTransform(smoothProgress, [0, 100], [0, 1]);
+  // Simplified progress on mobile - no spring animation
+  const smoothProgress = useSpring(progressValue, {
+    stiffness: reducedMotion || isMobile ? 300 : 100,
+    damping: reducedMotion || isMobile ? 50 : 30,
+    restDelta: 0.001,
+  });
 
   return (
     <motion.div
@@ -33,7 +45,7 @@ export const ScrollProgress = memo(function ScrollProgress() {
       style={{
         height: isMobile ? '2px' : '1px', // Slightly thicker on mobile for better visibility
         background: 'linear-gradient(90deg, var(--action-primary) 0%, var(--action-secondary) 100%)',
-        scaleX,
+        scaleX: smoothProgress,
         willChange: 'transform',
       }}
       role="progressbar"

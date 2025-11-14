@@ -164,72 +164,62 @@ export const Header = memo(function Header() {
               })}
             </nav>
 
-            {/* CTA Button - Desktop */}
-            <motion.button
-              className="hidden md:flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg transition-all duration-300 group relative overflow-hidden ml-auto"
-              style={{
-                backgroundColor: 'black',
-                color: 'white',
-                border: '1px solid black',
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                animate={{
-                  backgroundPosition: ['200% 0%', '-200% 0%'],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
-                style={{
-                  background: 'linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%)',
-                  backgroundSize: '200% 100%',
-                }}
-              />
-              <span className="label-sm relative z-10">Get Started</span>
-              <ArrowRight className="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
-            </motion.button>
-
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2 rounded-lg transition-colors duration-300 ml-auto"
+              className="md:hidden p-2 rounded-full transition-colors duration-300 ml-auto relative will-change-transform"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.92 }}
+              whileHover={{ scale: 1.05 }}
               style={{
                 color: 'black',
-                backgroundColor: mobileMenuOpen ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
+                backgroundColor: mobileMenuOpen ? 'rgba(16, 185, 129, 0.1)' : 'rgba(0, 0, 0, 0.05)',
               }}
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileMenuOpen}
             >
-              <AnimatePresence mode="wait">
-                {mobileMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-6 h-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* Animated Hamburger Icon */}
+              <div className="w-6 h-6 flex flex-col justify-center items-center gap-[5px] relative">
+                <motion.span
+                  className="block h-[2px] rounded-full bg-current origin-center will-change-transform"
+                  style={{ width: '18px' }}
+                  animate={mobileMenuOpen ? {
+                    rotate: 45,
+                    y: 7,
+                    backgroundColor: '#10B981',
+                  } : {
+                    rotate: 0,
+                    y: 0,
+                    backgroundColor: 'currentColor',
+                  }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <motion.span
+                  className="block h-[2px] rounded-full bg-current will-change-transform"
+                  style={{ width: '18px' }}
+                  animate={mobileMenuOpen ? {
+                    opacity: 0,
+                    x: -10,
+                  } : {
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <motion.span
+                  className="block h-[2px] rounded-full bg-current origin-center will-change-transform"
+                  style={{ width: '18px' }}
+                  animate={mobileMenuOpen ? {
+                    rotate: -45,
+                    y: -7,
+                    backgroundColor: '#10B981',
+                  } : {
+                    rotate: 0,
+                    y: 0,
+                    backgroundColor: 'currentColor',
+                  }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </div>
             </motion.button>
           </div>
         </div>
@@ -238,58 +228,87 @@ export const Header = memo(function Header() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-20 left-0 right-0 z-40 lg:hidden overflow-hidden"
-            style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.98)',
-              borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-            }}
-          >
-            <nav className="container-custom max-w-[var(--container-3xl)] py-6">
-              <div className="flex flex-col gap-2">
-                {NAV_ITEMS.map((item, index) => {
-                  const isActive = activeSection === item.href;
-                  return (
-                    <motion.a
-                      key={item.href}
-                      href={item.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="px-4 py-3 rounded-lg transition-all duration-300"
-                      style={{
-                        color: isActive ? 'black' : 'rgba(0, 0, 0, 0.6)',
-                        backgroundColor: isActive ? 'rgba(0, 0, 0, 0.08)' : 'transparent',
-                        borderLeft: isActive ? '2px solid black' : '2px solid transparent',
-                      }}
-                    >
-                      {item.label}
-                    </motion.a>
-                  );
-                })}
-                <motion.button
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: NAV_ITEMS.length * 0.05 }}
-                  className="mt-4 px-4 py-3 rounded-lg flex items-center justify-center gap-2 transition-all duration-300"
-                  style={{
-                    backgroundColor: 'black',
-                    color: 'white',
-                  }}
-                >
-                  <span>Get Started</span>
-                  <ArrowRight className="w-4 h-4" />
-                </motion.button>
-              </div>
-            </nav>
-          </motion.div>
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-30 md:hidden bg-black/20 backdrop-blur-sm"
+              onClick={() => setMobileMenuOpen(false)}
+              aria-hidden="true"
+            />
+            
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-20 left-4 right-4 z-40 md:hidden overflow-hidden rounded-2xl shadow-2xl will-change-transform"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.98)',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)',
+              }}
+            >
+              <nav className="py-4 px-2">
+                <div className="flex flex-col gap-1">
+                  {NAV_ITEMS.map((item, index) => {
+                    const isActive = activeSection === item.href;
+                    return (
+                      <motion.a
+                        key={item.href}
+                        href={item.href}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ 
+                          duration: 0.3, 
+                          delay: index * 0.04,
+                          ease: [0.22, 1, 0.36, 1]
+                        }}
+                        onClick={handleNavClick(index, item.href)}
+                        className="relative px-4 py-3.5 rounded-xl transition-all duration-300 group will-change-transform"
+                        style={{
+                          color: isActive ? '#09090B' : '#52525B',
+                          backgroundColor: isActive ? 'rgba(16, 185, 129, 0.08)' : 'transparent',
+                          fontFamily: 'var(--font-sans)',
+                          fontSize: '15px',
+                          fontWeight: isActive ? 600 : 500,
+                          letterSpacing: '-0.01em',
+                        }}
+                        whileTap={{ scale: 0.97 }}
+                      >
+                        {/* Active indicator */}
+                        {isActive && (
+                          <motion.div
+                            layoutId="mobileActiveIndicator"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-6 rounded-full"
+                            style={{ backgroundColor: '#10B981' }}
+                            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                        
+                        <span className="relative z-10 pl-2">{item.label}</span>
+                        
+                        {/* Hover effect */}
+                        {!isActive && (
+                          <motion.div
+                            className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100"
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                            transition={{ duration: 0.2 }}
+                          />
+                        )}
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

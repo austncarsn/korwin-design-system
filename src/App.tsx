@@ -212,9 +212,9 @@ export default function App() {
   // Memoize sections to prevent unnecessary re-renders
   const overviewSection = useMemo(() => (
     <RevealSection id="overview">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[200px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[340px] sm:auto-rows-[260px] md:auto-rows-[220px] lg:auto-rows-[200px]">
         {/* Hero Card - Design System - Large Featured */}
-        <BentoCard span="lg:col-span-8 lg:row-span-2" delay={0.1} interactive>
+        <BentoCard span="row-span-2 lg:col-span-8 lg:row-span-2" delay={0.1} interactive>
           <div className="h-full flex flex-col justify-between relative overflow-hidden">
             <div className="relative z-10">
               <div 
@@ -239,12 +239,9 @@ export default function App() {
                     <span className="caption tracking-[0.15em] uppercase" style={{ color: 'rgba(16, 185, 129, 0.8)' }}>Foundation</span>
                   </div>
                   <h3 
-                    className="mb-4" 
+                    className="display-md mb-4" 
                     style={{ 
                       color: 'black',
-                      fontSize: 'clamp(28px, 3.5vw, 40px)',
-                      lineHeight: '1.2',
-                      letterSpacing: '-0.02em',
                     }}
                   >
                     <motion.span
@@ -262,11 +259,9 @@ export default function App() {
                   </h3>
                 </div>
                 <p 
-                  className="leading-relaxed max-w-xl" 
+                  className="body-md leading-relaxed max-w-xl" 
                   style={{ 
                     color: 'rgba(0, 0, 0, 0.65)',
-                    fontSize: '16px',
-                    lineHeight: '1.7',
                   }}
                 >
                   A comprehensive, production-ready foundation built on accessible colors, refined typography, and systematic spacing—crafted for modern applications.
@@ -281,15 +276,11 @@ export default function App() {
               ].map((tag) => (
                 <div
                   key={tag.label}
-                  className="px-4 py-2 rounded-full transition-all duration-300 hover:scale-105"
+                  className="overline px-4 py-2 rounded-full transition-all duration-300 hover:scale-105"
                   style={{
                     backgroundColor: tag.bg,
                     border: `1px solid ${tag.color}20`,
                     color: tag.color,
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
                   }}
                 >
                   {tag.label}
@@ -399,29 +390,31 @@ export default function App() {
           <div className="h-full flex flex-col justify-between">
             <div>
               <div 
-                className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 relative"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-lg sm:rounded-xl flex items-center justify-center mb-4 sm:mb-6 relative"
                 style={{
                   background: 'linear-gradient(135deg, var(--state-success) 0%, #059669 100%)',
                   boxShadow: '0 4px 16px rgba(16, 185, 129, 0.25)',
                 }}
               >
-                <CheckCircle className="w-8 h-8" style={{ color: 'white' }} strokeWidth={2} />
+                <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: 'white' }} strokeWidth={2} />
               </div>
               <h4 
-                className="mb-4" 
+                className="mb-3 sm:mb-4" 
                 style={{ 
                   color: 'black',
-                  fontSize: '24px',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: 'clamp(20px, 4vw, 24px)',
+                  fontWeight: 600,
                   letterSpacing: '-0.01em',
                 }}
               >
                 Accessible
               </h4>
               <p 
-                className="leading-relaxed mb-6" 
+                className="leading-relaxed mb-4 sm:mb-6" 
                 style={{ 
                   color: 'rgba(0, 0, 0, 0.6)',
-                  fontSize: '15px',
+                  fontSize: 'clamp(14px, 3vw, 15px)',
                   lineHeight: '1.7',
                 }}
               >
@@ -468,7 +461,9 @@ export default function App() {
                 className="mb-4" 
                 style={{ 
                   color: 'black',
+                  fontFamily: 'var(--font-sans)',
                   fontSize: '24px',
+                  fontWeight: 600,
                   letterSpacing: '-0.01em',
                 }}
               >
@@ -534,7 +529,9 @@ export default function App() {
                 className="mb-4" 
                 style={{ 
                   color: 'black',
+                  fontFamily: 'var(--font-sans)',
                   fontSize: '24px',
+                  fontWeight: 600,
                   letterSpacing: '-0.01em',
                 }}
               >
@@ -592,7 +589,9 @@ export default function App() {
                   className="mb-2" 
                   style={{ 
                     color: 'black',
+                    fontFamily: 'var(--font-sans)',
                     fontSize: '24px',
+                    fontWeight: 600,
                     letterSpacing: '-0.01em',
                   }}
                 >
@@ -811,18 +810,25 @@ export default function App() {
               <div className="space-y-6 sm:space-y-[var(--space-8)]">
                 <TypeSpecimen className="display-2xl" label="Display 2XL" example="The quick brown fox" specs="Instrument Serif · 80px / 76px · -3% · 400" />
                 <TypeSpecimen className="display-xl" label="Display XL" example="jumps over the lazy dog" specs="Instrument Serif · 64px / 64px · -2.5% · 400" />
-                <TypeSpecimen className="display-l" label="Display L" example="The five boxing wizards" specs="Instrument Serif · 52px / 55px · -2% · 400" />
-                <TypeSpecimen element="h1" label="Heading 1" example="Pack my box with five" specs="Inter · 48px / 53px · -2% · 700" />
-                <TypeSpecimen element="h2" label="Heading 2" example="dozen liquor jugs" specs="Inter · 36px / 41px · -1.5% · 700" />
-                <TypeSpecimen element="h3" label="Heading 3" example="How vexingly quick daft" specs="Inter · 28px / 35px · -1% · 600" />
-                <TypeSpecimen element="h4" label="Heading 4" example="zebras jump" specs="Inter · 22px / 29px · -0.5% · 600" />
-                <TypeSpecimen element="h5" label="Heading 5" example="Sphinx of black quartz" specs="Inter · 18px / 25px · -0.3% · 600" />
-                <TypeSpecimen className="body-l" label="Body Large" example="The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs." specs="Inter · 18px / 30px · -0.3% · 400" />
-                <TypeSpecimen className="body-m" label="Body Medium" example="How vexingly quick daft zebras jump! The five boxing wizards jump quickly at the exam." specs="Inter · 16px / 26px · 0% · 400" />
-                <TypeSpecimen className="body-s" label="Body Small" example="Sphinx of black quartz, judge my vow. Two driven jocks help fax my big quiz with style." specs="Inter · 14px / 22px · 0% · 400" />
-                <TypeSpecimen className="label-l" label="Label Large" example="QUICK BROWN FOX" specs="Inter · 15px / 21px · +0.5% · 600" />
-                <TypeSpecimen className="label-m" label="Label Medium" example="JUMPS OVER DOG" specs="Inter · 14px / 19px · +1% · 600" />
-                <TypeSpecimen className="caption" label="Caption" example="Pack my box with five dozen liquor jugs" specs="Inter · 13px / 18px · 0% · 400" />
+                <TypeSpecimen className="display-lg" label="Display L" example="The five boxing wizards" specs="Instrument Serif · 52px / 55px · -2% · 400" />
+                <TypeSpecimen className="display-md" label="Display M" example="jump quickly at the exam" specs="Instrument Serif · 44px / 48px · -1.5% · 400" />
+                <TypeSpecimen className="display-sm" label="Display S" example="Sphinx of black quartz" specs="Instrument Serif · 36px / 41px · -1% · 400" />
+                <TypeSpecimen element="h1" label="Heading 1" example="Pack my box with five" specs="Instrument Serif · 48px / 53px · -2% · 700" />
+                <TypeSpecimen element="h2" label="Heading 2" example="dozen liquor jugs" specs="Instrument Serif · 36px / 41px · -1.5% · 700" />
+                <TypeSpecimen element="h3" label="Heading 3" example="How vexingly quick daft zebras jump" specs="Inter · 28px / 35px · -1% · 600" />
+                <TypeSpecimen element="h4" label="Heading 4" example="The five boxing wizards jump quickly" specs="Inter · 22px / 29px · -0.5% · 600" />
+                <TypeSpecimen element="h5" label="Heading 5" example="Pack my box with five dozen liquor jugs" specs="Inter · 18px / 25px · -0.3% · 600" />
+                <TypeSpecimen element="h6" label="Heading 6" example="Sphinx of black quartz, judge my vow" specs="Inter · 16px / 24px · 0% · 600" />
+                <TypeSpecimen className="body-xl" label="Body XL" example="The quick brown fox jumps over the lazy dog and beyond the horizon." specs="Inter · 20px / 34px · -0.5% · 400" />
+                <TypeSpecimen className="body-lg" label="Body L" example="How vexingly quick daft zebras jump! The five boxing wizards leap." specs="Inter · 18px / 30px · -0.3% · 400" />
+                <TypeSpecimen className="body-md" label="Body M" example="Pack my box with five dozen liquor jugs. The quick brown fox jumps over the lazy dog." specs="Inter · 16px / 26px · 0% · 400" />
+                <TypeSpecimen className="body-sm" label="Body S" example="Sphinx of black quartz, judge my vow. Two driven jocks help fax my big quiz with elegant style." specs="Inter · 14px / 22px · 0% · 400" />
+                <TypeSpecimen className="body-xs" label="Body XS" example="The five boxing wizards jump quickly. Sphinx of black quartz judges my vow every time." specs="Inter · 13px / 20px · 0% · 400" />
+                <TypeSpecimen className="label-lg" label="Label L" example="QUICK BROWN FOX JUMPS" specs="Inter · 15px / 21px · +0.5% · 600" />
+                <TypeSpecimen className="label-md" label="Label M" example="PACK MY BOX WITH JUGS" specs="Inter · 14px / 19px · +1% · 600" />
+                <TypeSpecimen className="label-sm" label="Label S" example="SPHINX OF BLACK QUARTZ" specs="Inter · 13px / 17px · +1% · 600" />
+                <TypeSpecimen className="label-xs" label="Label XS" example="BOXING WIZARDS JUMP" specs="Inter · 12px / 15px · +1.5% · 600" />
+                <TypeSpecimen className="caption" label="Caption" example="The quick brown fox jumps over the lazy dog with grace and precision" specs="Inter · 13px / 18px · 0% · 400" />
               </div>
             </Section>
           </RevealSection>

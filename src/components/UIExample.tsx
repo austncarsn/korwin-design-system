@@ -22,14 +22,14 @@ export const UIExample = memo(function UIExample({
       }}
     >
       {(title || description) && (
-        <div className="mb-6">
+        <div className="space-y-[var(--space-6)]">
           {title && (
-            <h4 className="mb-2" style={{ color: '#09090B', fontSize: '18px', fontWeight: '600' }}>
+            <h5 className="mb-2">
               {title}
-            </h4>
+            </h5>
           )}
           {description && (
-            <p style={{ color: '#71717A', fontSize: '14px', lineHeight: '1.6' }}>
+            <p className="body-sm" style={{ color: '#71717A' }}>
               {description}
             </p>
           )}

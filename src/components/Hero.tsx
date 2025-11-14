@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Github, Download, ArrowRight, Sparkles, Zap, Shield } from 'lucide-react';
 
@@ -24,13 +24,24 @@ const handleScrollTo = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) 
 };
 
 export const Hero = memo(function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollY } = useScroll();
   
-  // Refined, subtle parallax effects with smooth spring physics
-  const y1 = useTransform(scrollY, [0, 600], [0, 100], { clamp: true });
-  const y2 = useTransform(scrollY, [0, 600], [0, -60], { clamp: true });
-  const opacity = useTransform(scrollY, [0, 200, 400], [1, 0.8, 0], { clamp: true });
-  const scale = useTransform(scrollY, [0, 400], [1, 0.98], { clamp: true });
+  // Disable parallax on mobile for better performance
+  const y1 = useTransform(scrollY, [0, 600], isMobile ? [0, 0] : [0, 100], { clamp: true });
+  const y2 = useTransform(scrollY, [0, 600], isMobile ? [0, 0] : [0, -60], { clamp: true });
+  const opacity = useTransform(scrollY, [0, 200, 400], isMobile ? [1, 1, 1] : [1, 0.8, 0], { clamp: true });
+  const scale = useTransform(scrollY, [0, 400], isMobile ? [1, 1] : [1, 0.98], { clamp: true });
 
   return (
     <section
@@ -47,9 +58,10 @@ export const Hero = memo(function Hero() {
       <div className="absolute inset-0 overflow-hidden opacity-30" aria-hidden="true">
         {/* Primary gradient orb */}
         <motion.div
-          className="absolute -top-1/2 -left-1/4 w-[900px] h-[900px] rounded-full blur-3xl will-change-opacity"
+          className="absolute -top-1/2 -left-1/4 w-[900px] h-[900px] rounded-full blur-3xl"
           style={{
             background: 'radial-gradient(circle, rgba(16, 185, 129, 0.5) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
+            willChange: 'transform, opacity',
           }}
           animate={{
             scale: [1, 1.2, 1],
@@ -66,9 +78,10 @@ export const Hero = memo(function Hero() {
         
         {/* Secondary gradient orb */}
         <motion.div
-          className="absolute -bottom-1/2 -right-1/4 w-[700px] h-[700px] rounded-full blur-3xl will-change-opacity"
+          className="absolute -bottom-1/2 -right-1/4 w-[700px] h-[700px] rounded-full blur-3xl"
           style={{
             background: 'radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
+            willChange: 'transform, opacity',
           }}
           animate={{
             scale: [1.2, 1, 1.2],
@@ -85,9 +98,10 @@ export const Hero = memo(function Hero() {
         
         {/* Accent gradient orb */}
         <motion.div
-          className="absolute top-1/4 right-1/3 w-[500px] h-[500px] rounded-full blur-3xl will-change-opacity"
+          className="absolute top-1/4 right-1/3 w-[500px] h-[500px] rounded-full blur-3xl"
           style={{
             background: 'radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0.1) 40%, transparent 70%)',
+            willChange: 'transform, opacity',
           }}
           animate={{
             scale: [1, 1.15, 1],
@@ -182,7 +196,7 @@ export const Hero = memo(function Hero() {
           {/* Editorial Grid Layout */}
           <div className="grid grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Left Column - Main Content */}
-            <div className="col-span-12 lg:col-span-8">
+            <div className="col-span-12 lg:col-span-8 rounded-[100px]">
               {/* Issue Label */}
               <motion.div
                 {...ANIMATION_CONFIG}

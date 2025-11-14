@@ -58,8 +58,25 @@ export const RevealSection = memo(function RevealSection({
   const { ref, isVisible } = useScrollReveal(0.1, '-60px');
 
   useEffect(() => {
-    setIsMobileDevice(isMobile());
-    setReducedMotion(shouldReduceMotion());
+    // Check for mobile device
+    const checkMobile = () => {
+      setIsMobileDevice(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+
+    const handleChange = () => setReducedMotion(mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   const config = reducedMotion 

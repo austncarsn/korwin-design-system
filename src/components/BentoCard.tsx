@@ -29,7 +29,12 @@ const ANIMATION_CONFIG = {
   mobile: {
     initial: { opacity: 0, y: 8 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+  },
+  reduced: {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.2 },
   },
 } as const;
 
@@ -161,20 +166,26 @@ export const BentoCard = memo(function BentoCard({
       {interactive && !isMobile && (
         <motion.div
           className="absolute inset-0 pointer-events-none"
+          style={{
+            willChange: isHovered ? 'background' : 'auto',
+          }}
           animate={{
             background: isHovered
-              ? 'linear-gradient(110deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.6) 55%, transparent 60%, transparent 100%)'
-              : 'transparent',
-            backgroundSize: isHovered ? '200% 100%' : '100% 100%',
-            backgroundPosition: isHovered ? ['200% 0%', '-200% 0%'] : '0% 0%',
+              ? 'linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.08) 25%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.08) 75%, transparent 100%)'
+              : 'linear-gradient(135deg, transparent 0%, transparent 100%)',
+            backgroundPosition: isHovered ? ['0% 0%', '200% 0%'] : '0% 0%',
           }}
           transition={{
+            background: { duration: 0.3 },
             backgroundPosition: {
-              duration: 1.5,
-              repeat: Infinity,
+              duration: isHovered ? 1.5 : 0,
+              repeat: isHovered ? Infinity : 0,
               ease: 'linear',
             },
-            background: { duration: 0.3 },
+          }}
+          style={{
+            backgroundSize: '200% 100%',
+            borderRadius: 'inherit',
           }}
         />
       )}
@@ -231,7 +242,7 @@ export const BentoCard = memo(function BentoCard({
       )}
 
       {/* Content */}
-      <div className="relative z-10 h-full p-6 md:p-8">{children}</div>
+      <div className="relative z-10 h-full p-4 sm:p-5 md:p-6 lg:p-8">{children}</div>
 
       {/* Corner accent - Desktop only */}
       {interactive && !isMobile && (

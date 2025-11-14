@@ -398,24 +398,20 @@
     transition: all var(--duration-normal) var(--ease-out);
   }
 
-  /* Enhanced smooth scroll */
+  /* Smooth scrolling with momentum on mobile */
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px; /* Account for fixed header */
+    -webkit-overflow-scrolling: touch;
   }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
-  
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
     
-    * {
+    *,
+    *::before,
+    *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -472,20 +468,20 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(8px);
+      transform: translate3d(0, 8px, 0);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
   @keyframes slideIn {
     from {
-      transform: translateX(-100%);
+      transform: translate3d(-100%, 0, 0);
     }
     to {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -509,16 +505,16 @@
 
   @keyframes float {
     0%, 100% {
-      transform: translate(0, 0);
+      transform: translate3d(0, 0, 0);
     }
     25% {
-      transform: translate(30px, -20px);
+      transform: translate3d(30px, -20px, 0);
     }
     50% {
-      transform: translate(-20px, 30px);
+      transform: translate3d(0, -30px, 0);
     }
     75% {
-      transform: translate(20px, 20px);
+      transform: translate3d(-30px, -15px, 0);
     }
   }
 
