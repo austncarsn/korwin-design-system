@@ -2077,6 +2077,10 @@
     padding-right: calc(var(--spacing) * 24);
   }
 
+  .pb-12 {
+    padding-bottom: calc(var(--spacing) * 12);
+  }
+
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
   }

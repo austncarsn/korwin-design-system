@@ -1,5 +1,5 @@
 import React, { useState, useMemo, lazy, Suspense } from 'react';
-import { Header2 } from './components/Header2';
+import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { FloatingNav } from './components/FloatingNav';
 import { Section } from './components/Section';
@@ -558,7 +558,7 @@ export default function App() {
     }}>
       <ScrollProgress />
       <CommandPalette />
-      <Header2 />
+      <Header />
       <Hero />
       <FloatingNav />
       
@@ -668,8 +668,63 @@ export default function App() {
           <RevealSection id="typography">
             <Section
               title="Typography"
-              description="Plus Jakarta Sans provides a modern, geometric typeface with excellent legibility across all sizes. The type scale follows a harmonious progression optimized for readability."
+              description="Our typography system features Instrument Serif for display text and Inter for body copy—creating a sophisticated editorial aesthetic with excellent readability across all sizes."
             >
+              {/* Font Family Labels */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 pb-12 border-b" style={{ borderColor: 'var(--border-default)' }}>
+                <div className="space-y-3">
+                  <div 
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md" 
+                    style={{ 
+                      backgroundColor: 'var(--action-primary-subtle)',
+                      border: '1px solid var(--action-primary-subtle-hover)'
+                    }}
+                  >
+                    <span className="label-sm" style={{ color: 'var(--action-primary-active)' }}>DISPLAY FONT</span>
+                  </div>
+                  <h3 
+                    style={{ 
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 'clamp(32px, 4vw, 48px)',
+                      lineHeight: '1.1',
+                      letterSpacing: '-0.02em',
+                      color: 'var(--text-primary)'
+                    }}
+                  >
+                    Instrument Serif
+                  </h3>
+                  <p className="body-sm" style={{ color: 'var(--text-secondary)' }}>
+                    Elegant serif typeface for headlines, display text, and editorial content. Features refined letterforms with italic variants.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div 
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md" 
+                    style={{ 
+                      backgroundColor: 'var(--action-secondary-subtle)',
+                      border: '1px solid var(--action-secondary-subtle-hover)'
+                    }}
+                  >
+                    <span className="label-sm" style={{ color: 'var(--action-secondary-active)' }}>BODY FONT</span>
+                  </div>
+                  <h3 
+                    style={{ 
+                      fontFamily: 'var(--font-sans)',
+                      fontSize: 'clamp(32px, 4vw, 48px)',
+                      lineHeight: '1.1',
+                      letterSpacing: '-0.02em',
+                      color: 'var(--text-primary)'
+                    }}
+                  >
+                    Inter
+                  </h3>
+                  <p className="body-sm" style={{ color: 'var(--text-secondary)' }}>
+                    Modern sans-serif for body text, UI components, and interface elements. Optimized for screen readability.
+                  </p>
+                </div>
+              </div>
+
               <div className="space-y-6 sm:space-y-[var(--space-8)]">
                 <TypeSpecimen className="display-2xl" label="Display 2XL" example="The quick brown fox" specs="72px / 80px · -2%" />
                 <TypeSpecimen className="display-xl" label="Display XL" example="jumps over the lazy dog" specs="56px / 64px · -1.5%" />

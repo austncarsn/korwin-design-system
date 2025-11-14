@@ -227,16 +227,16 @@ export const Hero = memo(function Hero() {
                 <br />
                 <motion.span
                   animate={{
-                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    backgroundPosition: ['0% 50%', '25% 60%', '50% 40%', '75% 55%', '100% 50%', '75% 45%', '50% 60%', '25% 40%', '0% 50%'],
                   }}
                   transition={{
-                    duration: 5,
+                    duration: 8,
                     repeat: Infinity,
-                    ease: 'linear',
+                    ease: [0.45, 0.05, 0.55, 0.95], // Custom easing for liquid flow
                   }}
                   style={{
-                    background: 'linear-gradient(135deg, var(--action-primary) 0%, var(--action-secondary) 50%, var(--action-primary) 100%)',
-                    backgroundSize: '200% 100%',
+                    background: 'linear-gradient(135deg, #10B981 0%, #059669 15%, #6366F1 30%, #4F46E5 45%, #10B981 60%, #34D399 75%, #6366F1 90%, #10B981 100%)',
+                    backgroundSize: '300% 300%',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
