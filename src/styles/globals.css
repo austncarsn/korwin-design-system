@@ -1,0 +1,810 @@
+@import "tailwindcss";
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Korwin Design System - Perfected v2.0 */
+@layer base {
+  :root {
+    /* ========================================
+       FOUNDATION COLORS - Museum Quality
+       ======================================== */
+    
+    /* Pure Foundations */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    
+    /* Neutrals - Sophisticated Ash Scale */
+    --color-ash-50: #FAFAFA;
+    --color-ash-100: #F4F4F5;
+    --color-ash-200: #E4E4E7;
+    --color-ash-300: #D4D4D8;
+    --color-ash-400: #A1A1AA;
+    --color-ash-500: #71717A;
+    --color-ash-600: #52525B;
+    --color-ash-700: #3F3F46;
+    --color-ash-800: #27272A;
+    --color-ash-900: #18181B;
+    --color-ash-950: #09090B;
+
+    /* Warm Neutrals - Beige Undertones */
+    --color-warm-50: #FAFAF9;
+    --color-warm-100: #F5F5F4;
+    --color-warm-200: #E7E5E4;
+    --color-warm-300: #D6D3D1;
+    --color-warm-400: #A8A29E;
+    --color-warm-500: #78716C;
+    --color-warm-600: #57534E;
+    --color-warm-700: #44403C;
+    --color-warm-800: #292524;
+    --color-warm-900: #1C1917;
+    --color-warm-950: #0C0A09;
+
+    /* Emerald - Primary Brand Color */
+    --color-emerald-50: #ECFDF5;
+    --color-emerald-100: #D1FAE5;
+    --color-emerald-200: #A7F3D0;
+    --color-emerald-300: #6EE7B7;
+    --color-emerald-400: #34D399;
+    --color-emerald-500: #10B981;
+    --color-emerald-600: #059669;
+    --color-emerald-700: #047857;
+    --color-emerald-800: #065F46;
+    --color-emerald-900: #064E3B;
+    --color-emerald-950: #022C22;
+
+    /* Jade - Sophisticated Green Variant */
+    --color-jade-50: #F0FDF4;
+    --color-jade-100: #DCFCE7;
+    --color-jade-200: #BBF7D0;
+    --color-jade-300: #86EFAC;
+    --color-jade-400: #4ADE80;
+    --color-jade-500: #22C55E;
+    --color-jade-600: #16A34A;
+    --color-jade-700: #15803D;
+    --color-jade-800: #166534;
+    --color-jade-900: #14532D;
+    --color-jade-950: #052E16;
+
+    /* Amber - Warm Accent */
+    --color-amber-50: #FFFBEB;
+    --color-amber-100: #FEF3C7;
+    --color-amber-200: #FDE68A;
+    --color-amber-300: #FCD34D;
+    --color-amber-400: #FBBF24;
+    --color-amber-500: #F59E0B;
+    --color-amber-600: #D97706;
+    --color-amber-700: #B45309;
+    --color-amber-800: #92400E;
+    --color-amber-900: #78350F;
+    --color-amber-950: #451A03;
+
+    /* Indigo - Secondary Brand */
+    --color-indigo-50: #EEF2FF;
+    --color-indigo-100: #E0E7FF;
+    --color-indigo-200: #C7D2FE;
+    --color-indigo-300: #A5B4FC;
+    --color-indigo-400: #818CF8;
+    --color-indigo-500: #6366F1;
+    --color-indigo-600: #4F46E5;
+    --color-indigo-700: #4338CA;
+    --color-indigo-800: #3730A3;
+    --color-indigo-900: #312E81;
+    --color-indigo-950: #1E1B4B;
+
+    /* Rose - Error States */
+    --color-rose-50: #FFF1F2;
+    --color-rose-100: #FFE4E6;
+    --color-rose-200: #FECDD3;
+    --color-rose-300: #FDA4AF;
+    --color-rose-400: #FB7185;
+    --color-rose-500: #F43F5E;
+    --color-rose-600: #E11D48;
+    --color-rose-700: #BE123C;
+    --color-rose-800: #9F1239;
+    --color-rose-900: #881337;
+    --color-rose-950: #4C0519;
+
+    /* Sky - Info States */
+    --color-sky-50: #F0F9FF;
+    --color-sky-100: #E0F2FE;
+    --color-sky-200: #BAE6FD;
+    --color-sky-300: #7DD3FC;
+    --color-sky-400: #38BDF8;
+    --color-sky-500: #0EA5E9;
+    --color-sky-600: #0284C7;
+    --color-sky-700: #0369A1;
+    --color-sky-800: #075985;
+    --color-sky-900: #0C4A6E;
+    --color-sky-950: #082F49;
+
+    /* ========================================
+       SEMANTIC COLOR SYSTEM - Production Ready
+       ======================================== */
+    
+    /* Background Hierarchy */
+    --bg-canvas: #FFFFFF;
+    --bg-canvas-subtle: #FAFAFA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-raised: #FFFFFF;
+    --bg-surface-overlay: rgba(255, 255, 255, 0.95);
+    --bg-subtle: #F4F4F5;
+    --bg-muted: #E4E4E7;
+    --bg-inverse: #09090B;
+    --bg-inverse-subtle: #18181B;
+    --bg-inverse-muted: #27272A;
+    
+    /* Background Gradients */
+    --bg-gradient-radial: radial-gradient(circle at top, #FAFAFA 0%, #FFFFFF 100%);
+    --bg-gradient-mesh: 
+      radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.02) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.02) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(16, 185, 129, 0.02) 0px, transparent 50%);
+
+    /* Text Hierarchy - Perfect Contrast */
+    --text-primary: #09090B;
+    --text-secondary: #52525B;
+    --text-tertiary: #71717A;
+    --text-quaternary: #A1A1AA;
+    --text-disabled: #D4D4D8;
+    --text-placeholder: #A1A1AA;
+    --text-inverse: #FAFAFA;
+    --text-inverse-secondary: #D4D4D8;
+    --text-link: #059669;
+    --text-link-hover: #047857;
+    --text-on-color: #FFFFFF;
+
+    /* Interactive Actions - Emerald Primary */
+    --action-primary: #10B981;
+    --action-primary-hover: #059669;
+    --action-primary-active: #047857;
+    --action-primary-disabled: #A7F3D0;
+    --action-primary-subtle: #ECFDF5;
+    --action-primary-subtle-hover: #D1FAE5;
+    
+    /* Interactive Actions - Indigo Secondary */
+    --action-secondary: #6366F1;
+    --action-secondary-hover: #4F46E5;
+    --action-secondary-active: #4338CA;
+    --action-secondary-disabled: #C7D2FE;
+    --action-secondary-subtle: #EEF2FF;
+    --action-secondary-subtle-hover: #E0E7FF;
+
+    /* Interactive Actions - Neutral */
+    --action-neutral: #F4F4F5;
+    --action-neutral-hover: #E4E4E7;
+    --action-neutral-active: #D4D4D8;
+    --action-neutral-disabled: #FAFAFA;
+
+    /* Border System - Refined Opacity */
+    --border-subtle: rgba(0, 0, 0, 0.04);
+    --border-default: rgba(0, 0, 0, 0.08);
+    --border-medium: rgba(0, 0, 0, 0.12);
+    --border-strong: rgba(0, 0, 0, 0.16);
+    --border-inverse: rgba(255, 255, 255, 0.1);
+    --border-inverse-strong: rgba(255, 255, 255, 0.2);
+    
+    /* Focus States */
+    --border-focus: rgba(16, 185, 129, 0.5);
+    --border-focus-ring: rgba(16, 185, 129, 0.2);
+    --border-error: rgba(244, 63, 94, 0.5);
+    --border-error-ring: rgba(244, 63, 94, 0.2);
+
+    /* State Colors - Feedback System */
+    --state-success: #10B981;
+    --state-success-bg: #ECFDF5;
+    --state-success-bg-subtle: #F0FDF4;
+    --state-success-border: #A7F3D0;
+    --state-success-text: #065F46;
+    
+    --state-warning: #F59E0B;
+    --state-warning-bg: #FFFBEB;
+    --state-warning-bg-subtle: #FEFCE8;
+    --state-warning-border: #FDE68A;
+    --state-warning-text: #92400E;
+    
+    --state-error: #F43F5E;
+    --state-error-bg: #FFF1F2;
+    --state-error-bg-subtle: #FFF5F5;
+    --state-error-border: #FECDD3;
+    --state-error-text: #9F1239;
+    
+    --state-info: #6366F1;
+    --state-info-bg: #EEF2FF;
+    --state-info-bg-subtle: #F0F9FF;
+    --state-info-border: #C7D2FE;
+    --state-info-text: #3730A3;
+
+    /* ========================================
+       ELEVATION SYSTEM - Museum Quality Shadows
+       ======================================== */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.07), 0 8px 10px -6px rgba(0, 0, 0, 0.07);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.10);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+    
+    /* Colored Shadows - Brand Glows */
+    --shadow-glow-emerald: 0 0 32px rgba(16, 185, 129, 0.25), 0 0 16px rgba(16, 185, 129, 0.15);
+    --shadow-glow-emerald-lg: 0 0 48px rgba(16, 185, 129, 0.35), 0 0 24px rgba(16, 185, 129, 0.2);
+    --shadow-glow-indigo: 0 0 32px rgba(99, 102, 241, 0.25), 0 0 16px rgba(99, 102, 241, 0.15);
+    --shadow-glow-amber: 0 0 32px rgba(245, 158, 11, 0.25), 0 0 16px rgba(245, 158, 11, 0.15);
+    --shadow-glow-rose: 0 0 32px rgba(244, 63, 94, 0.25), 0 0 16px rgba(244, 63, 94, 0.15);
+
+    /* ========================================
+       SPACING SYSTEM - 4px Base Grid
+       ======================================== */
+    --space-0: 0px;
+    --space-0-5: 2px;
+    --space-1: 4px;
+    --space-1-5: 6px;
+    --space-2: 8px;
+    --space-2-5: 10px;
+    --space-3: 12px;
+    --space-3-5: 14px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 28px;
+    --space-8: 32px;
+    --space-9: 36px;
+    --space-10: 40px;
+    --space-11: 44px;
+    --space-12: 48px;
+    --space-14: 56px;
+    --space-16: 64px;
+    --space-20: 80px;
+    --space-24: 96px;
+    --space-28: 112px;
+    --space-32: 128px;
+    --space-36: 144px;
+    --space-40: 160px;
+    --space-44: 176px;
+    --space-48: 192px;
+    --space-52: 208px;
+    --space-56: 224px;
+    --space-60: 240px;
+    --space-64: 256px;
+
+    /* ========================================
+       BORDER RADIUS SYSTEM
+       ======================================== */
+    --radius-none: 0px;
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-3xl: 20px;
+    --radius-4xl: 24px;
+    --radius-5xl: 32px;
+    --radius-full: 9999px;
+
+    /* ========================================
+       TYPOGRAPHY SCALE - Refined Hierarchy
+       ======================================== */
+    
+    /* Font Families */
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+
+    /* ========================================
+       LAYOUT & CONTAINERS
+       ======================================== */
+    --container-xs: 480px;
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+    --container-3xl: 1800px;
+    --container-max: 1920px;
+
+    /* ========================================
+       TIMING & EASING FUNCTIONS
+       ======================================== */
+    --duration-instant: 100ms;
+    --duration-fast: 200ms;
+    --duration-normal: 300ms;
+    --duration-slow: 400ms;
+    --duration-slower: 600ms;
+    --duration-slowest: 800ms;
+
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* ========================================
+       Z-INDEX SCALE
+       ======================================== */
+    --z-base: 0;
+    --z-dropdown: 1000;
+    --z-sticky: 1100;
+    --z-fixed: 1200;
+    --z-modal-backdrop: 1300;
+    --z-modal: 1400;
+    --z-popover: 1500;
+    --z-tooltip: 1600;
+  }
+
+  /* ========================================
+     GLOBAL RESETS & BASE STYLES
+     ======================================== */
+  
+  * {
+    border-color: var(--border-default);
+  }
+
+  *::before,
+  *::after {
+    border-color: inherit;
+  }
+
+  html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    background-color: var(--bg-canvas);
+    background-image: var(--bg-gradient-mesh);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    position: relative;
+  }
+
+  /* Subtle noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.015;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  /* Enhanced smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-subtle);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 6px;
+    border: 3px solid var(--bg-subtle);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--action-primary);
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: color-mix(in srgb, var(--action-primary) 25%, transparent);
+    color: var(--text-primary);
+  }
+
+  /* Focus visible improvements */
+  *:focus-visible {
+    outline: 2px solid var(--action-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* ========================================
+     PERFORMANCE OPTIMIZATIONS
+     ======================================== */
+  
+  .will-change-transform {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* GPU-accelerated animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0, 0);
+    }
+    25% {
+      transform: translate(30px, -20px);
+    }
+    50% {
+      transform: translate(-20px, 30px);
+    }
+    75% {
+      transform: translate(20px, 20px);
+    }
+  }
+
+  /* ========================================
+     TYPOGRAPHY SYSTEM - Museum Quality
+     ======================================== */
+  
+  /* Display Styles - Instrument Serif */
+  .display-2xl {
+    font-family: var(--font-display);
+    font-size: 80px;
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+
+  .display-xl {
+    font-family: var(--font-display);
+    font-size: 64px;
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    font-size: 52px;
+    line-height: 1.05;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .display-md {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  .display-sm {
+    font-family: var(--font-display);
+    font-size: 36px;
+    line-height: 1.15;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Headings - Inter */
+  h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-size: 22px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+
+  h5 {
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: -0.003em;
+  }
+
+  h6 {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  /* Body Text */
+  .body-xl {
+    font-size: 20px;
+    line-height: 1.7;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  .body-lg {
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 400;
+    letter-spacing: -0.003em;
+  }
+
+  .body-md, p {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .body-sm {
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .body-xs {
+    font-size: 13px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* Labels & UI Text */
+  .label-lg {
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+  }
+
+  .label-md {
+    font-size: 14px;
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .label-sm {
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .label-xs {
+    font-size: 12px;
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+  }
+
+  /* Specialized Styles */
+  .caption {
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--text-tertiary);
+  }
+
+  .overline {
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  /* Code & Monospace */
+  code, .code {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  pre code {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     FOCUS & INTERACTION STATES
+     ======================================== */
+  
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar styling (Webkit) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-subtle);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-quaternary);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) var(--bg-subtle);
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+@layer utilities {
+  .container-custom {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .container-custom {
+      padding-left: var(--space-8);
+      padding-right: var(--space-8);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-custom {
+      padding-left: var(--space-12);
+      padding-right: var(--space-12);
+    }
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--action-primary) 0%, var(--action-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-emerald {
+    background: linear-gradient(135deg, var(--color-emerald-500) 0%, var(--color-jade-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-text-indigo {
+    background: linear-gradient(135deg, var(--color-indigo-500) 0%, var(--color-indigo-700) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism */
+  .glass {
+    background: var(--bg-surface-overlay);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  /* Gradients */
+  .bg-gradient-radial {
+    background: var(--bg-gradient-radial);
+  }
+
+  .bg-gradient-mesh {
+    background-image: var(--bg-gradient-mesh);
+  }
+}
