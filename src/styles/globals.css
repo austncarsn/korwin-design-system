@@ -389,6 +389,25 @@
   /* Enhanced smooth scroll */
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Account for fixed header */
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   /* Custom scrollbar styling */

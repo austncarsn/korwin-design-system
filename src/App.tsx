@@ -21,6 +21,9 @@ import { EditorialDivider } from './components/EditorialDivider';
 import { PullQuote } from './components/PullQuote';
 import { EditorialHeader } from './components/EditorialHeader';
 import { Footer } from './components/Footer';
+import { ButtonsSection } from './components/ButtonsSection';
+import { FormInputsSection } from './components/FormInputsSection';
+import { CardsSection } from './components/CardsSection';
 import {
   CheckCircle,
   AlertCircle,
@@ -30,6 +33,7 @@ import {
   Zap,
   Shield,
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 // Memoized constants
 const BASE_COLORS = [
@@ -125,9 +129,9 @@ export default function App() {
   // Memoize sections to prevent unnecessary re-renders
   const overviewSection = useMemo(() => (
     <RevealSection id="overview">
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-[var(--space-6)] auto-rows-[minmax(260px,auto)]">
-        {/* Hero Card - Design System */}
-        <BentoCard span="2x2" delay={0.1} interactive>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 auto-rows-[200px]">
+        {/* Hero Card - Design System - Large Featured */}
+        <BentoCard span="lg:col-span-8 lg:row-span-2" delay={0.1} interactive>
           <div className="h-full flex flex-col justify-between relative overflow-hidden">
             <div className="relative z-10">
               <div 
@@ -155,19 +159,30 @@ export default function App() {
                     className="mb-4" 
                     style={{ 
                       color: 'black',
-                      fontSize: 'clamp(24px, 3vw, 32px)',
+                      fontSize: 'clamp(28px, 3.5vw, 40px)',
                       lineHeight: '1.2',
                       letterSpacing: '-0.02em',
                     }}
                   >
-                    Design System
+                    <motion.span
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.8, 
+                        delay: 0.3,
+                        ease: [0.22, 1, 0.36, 1] 
+                      }}
+                      style={{ display: 'inline-block' }}
+                    >
+                      Design System
+                    </motion.span>
                   </h3>
                 </div>
                 <p 
-                  className="leading-relaxed max-w-md" 
+                  className="leading-relaxed max-w-xl" 
                   style={{ 
                     color: 'rgba(0, 0, 0, 0.65)',
-                    fontSize: '15px',
+                    fontSize: '16px',
                     lineHeight: '1.7',
                   }}
                 >
@@ -213,42 +228,125 @@ export default function App() {
           </div>
         </BentoCard>
 
+        {/* Stats Cards - Vertical Stack */}
+        {[
+          {
+            value: '6',
+            label: 'Base Colors',
+            caption: 'Curated palette',
+            delay: 0.2,
+            gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+            color: '#10B981',
+          },
+          {
+            value: '12+',
+            label: 'Components',
+            caption: 'Production ready',
+            delay: 0.25,
+            gradient: 'linear-gradient(135deg, #10B981 0%, #6366F1 100%)',
+            color: '#6366F1',
+          },
+          {
+            value: '4px',
+            label: 'Grid System',
+            caption: 'Consistent spacing',
+            delay: 0.3,
+            gradient: 'linear-gradient(135deg, #6366F1 0%, #10B981 100%)',
+            color: '#059669',
+          },
+        ].map((stat, index) => (
+          <BentoCard key={stat.label} span={`lg:col-span-4 lg:row-span-1 ${index === 0 ? 'lg:col-start-9' : ''}`} delay={stat.delay}>
+            <div className="h-full flex flex-col items-center justify-center text-center relative overflow-hidden">
+              {/* Background gradient decoration */}
+              <div
+                className="absolute inset-0 opacity-[0.06] rounded-2xl"
+                style={{ background: stat.gradient }}
+                aria-hidden="true"
+              />
+              <div className="relative z-10 space-y-3">
+                <div
+                  style={{ 
+                    color: stat.color,
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(40px, 5vw, 56px)',
+                    lineHeight: '1',
+                    letterSpacing: '-0.03em',
+                    fontWeight: 400,
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div>
+                  <div 
+                    className="mb-1" 
+                    style={{ 
+                      color: 'black',
+                      fontSize: '15px',
+                      fontWeight: 600,
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {stat.label}
+                  </div>
+                  <div 
+                    style={{ 
+                      color: 'rgba(0, 0, 0, 0.5)',
+                      fontSize: '12px',
+                      letterSpacing: '0.02em',
+                    }}
+                  >
+                    {stat.caption}
+                  </div>
+                </div>
+              </div>
+              {/* Decorative corner accent */}
+              <div 
+                className="absolute top-0 right-0 w-16 h-16 opacity-[0.08]"
+                style={{
+                  background: `radial-gradient(circle at top right, ${stat.color} 0%, transparent 70%)`,
+                }}
+                aria-hidden="true"
+              />
+            </div>
+          </BentoCard>
+        ))}
+
         {/* Accessible Card */}
-        <BentoCard span="2x1" delay={0.2}>
-          <div className="h-full flex flex-col justify-between p-6">
+        <BentoCard span="lg:col-span-4 lg:row-span-2" delay={0.35}>
+          <div className="h-full flex flex-col justify-between">
             <div>
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 relative"
+                className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 relative"
                 style={{
                   background: 'linear-gradient(135deg, var(--state-success) 0%, #059669 100%)',
                   boxShadow: '0 4px 16px rgba(16, 185, 129, 0.25)',
                 }}
               >
-                <CheckCircle className="w-7 h-7" style={{ color: 'white' }} strokeWidth={2} />
+                <CheckCircle className="w-8 h-8" style={{ color: 'white' }} strokeWidth={2} />
               </div>
               <h4 
-                className="mb-3" 
+                className="mb-4" 
                 style={{ 
                   color: 'black',
-                  fontSize: '20px',
+                  fontSize: '24px',
                   letterSpacing: '-0.01em',
                 }}
               >
                 Accessible
               </h4>
               <p 
-                className="leading-relaxed" 
+                className="leading-relaxed mb-6" 
                 style={{ 
                   color: 'rgba(0, 0, 0, 0.6)',
-                  fontSize: '14px',
-                  lineHeight: '1.6',
+                  fontSize: '15px',
+                  lineHeight: '1.7',
                 }}
               >
-                All colors meet WCAG AA/AAA standards with carefully tested contrast ratios for maximum readability.
+                All colors meet WCAG AA/AAA standards with carefully tested contrast ratios for maximum readability across all interfaces.
               </p>
             </div>
             <div 
-              className="mt-6 flex items-center gap-2 px-3 py-2 rounded-lg w-fit" 
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg w-fit" 
               style={{ 
                 backgroundColor: 'rgba(16, 185, 129, 0.08)',
                 border: '1px solid rgba(16, 185, 129, 0.2)',
@@ -270,81 +368,24 @@ export default function App() {
           </div>
         </BentoCard>
 
-        {/* Comprehensive Card */}
-        <BentoCard span="2x1" delay={0.25}>
-          <div className="h-full flex flex-col justify-between p-6">
-            <div>
-              <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
-                style={{
-                  background: 'linear-gradient(135deg, var(--state-info) 0%, #4F46E5 100%)',
-                  boxShadow: '0 4px 16px rgba(99, 102, 241, 0.25)',
-                }}
-              >
-                <Info className="w-7 h-7" style={{ color: 'white' }} strokeWidth={2} />
-              </div>
-              <h4 
-                className="mb-3" 
-                style={{ 
-                  color: 'black',
-                  fontSize: '20px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Comprehensive
-              </h4>
-              <p 
-                className="leading-relaxed" 
-                style={{ 
-                  color: 'rgba(0, 0, 0, 0.6)',
-                  fontSize: '14px',
-                  lineHeight: '1.6',
-                }}
-              >
-                Complete foundation including color palette, typography system, spacing grid, and production-ready components.
-              </p>
-            </div>
-            <div 
-              className="mt-6 flex items-center gap-2 px-3 py-2 rounded-lg w-fit" 
-              style={{ 
-                backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                border: '1px solid rgba(99, 102, 241, 0.2)',
-              }}
-            >
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--state-info)' }} />
-              <span 
-                style={{ 
-                  color: 'var(--state-info)',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                End-to-End System
-              </span>
-            </div>
-          </div>
-        </BentoCard>
-
         {/* Fast Card */}
-        <BentoCard span="1x2" delay={0.3}>
-          <div className="h-full flex flex-col justify-between relative overflow-hidden p-6">
+        <BentoCard span="lg:col-span-4 lg:row-span-2" delay={0.4}>
+          <div className="h-full flex flex-col justify-between relative overflow-hidden">
             <div className="relative z-10">
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                className="w-16 h-16 rounded-xl flex items-center justify-center mb-6"
                 style={{
                   background: 'linear-gradient(135deg, var(--action-primary) 0%, #059669 100%)',
                   boxShadow: '0 4px 16px rgba(16, 185, 129, 0.25)',
                 }}
               >
-                <Zap className="w-7 h-7" style={{ color: 'white' }} strokeWidth={2} fill="white" />
+                <Zap className="w-8 h-8" style={{ color: 'white' }} strokeWidth={2} fill="white" />
               </div>
               <h4 
-                className="mb-3" 
+                className="mb-4" 
                 style={{ 
                   color: 'black',
-                  fontSize: '20px',
+                  fontSize: '24px',
                   letterSpacing: '-0.01em',
                 }}
               >
@@ -354,14 +395,14 @@ export default function App() {
                 className="mb-6 leading-relaxed" 
                 style={{ 
                   color: 'rgba(0, 0, 0, 0.6)',
-                  fontSize: '14px',
-                  lineHeight: '1.6',
+                  fontSize: '15px',
+                  lineHeight: '1.7',
                 }}
               >
                 Optimized for 60fps performance with GPU-accelerated animations and efficient rendering.
               </p>
               <div 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg w-fit" 
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg w-fit" 
                 style={{ 
                   backgroundColor: 'rgba(16, 185, 129, 0.08)',
                   border: '1px solid rgba(16, 185, 129, 0.2)',
@@ -393,159 +434,115 @@ export default function App() {
           </div>
         </BentoCard>
 
-        {/* Stats Cards */}
-        {[
-          {
-            value: '6',
-            label: 'Base Colors',
-            caption: 'Curated palette',
-            delay: 0.35,
-            gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-            color: '#10B981',
-          },
-          {
-            value: '12+',
-            label: 'Components',
-            caption: 'Production ready',
-            delay: 0.4,
-            gradient: 'linear-gradient(135deg, #10B981 0%, #6366F1 100%)',
-            color: '#6366F1',
-          },
-          {
-            value: '4px',
-            label: 'Grid System',
-            caption: 'Consistent spacing',
-            delay: 0.45,
-            gradient: 'linear-gradient(135deg, #6366F1 0%, #10B981 100%)',
-            color: '#059669',
-          },
-        ].map((stat) => (
-          <BentoCard key={stat.label} span="1x1" delay={stat.delay}>
-            <div className="h-full flex flex-col items-center justify-center text-center relative overflow-hidden p-6">
-              {/* Background gradient decoration */}
-              <div
-                className="absolute inset-0 opacity-[0.06]"
-                style={{ background: stat.gradient }}
-                aria-hidden="true"
-              />
-              <div className="relative z-10 space-y-3">
-                <div
-                  style={{ 
-                    color: stat.color,
-                    fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(48px, 6vw, 72px)',
-                    lineHeight: '1',
-                    letterSpacing: '-0.03em',
-                    fontWeight: 400,
-                  }}
-                >
-                  {stat.value}
-                </div>
-                <div>
-                  <div 
-                    className="mb-1" 
-                    style={{ 
-                      color: 'black',
-                      fontSize: '16px',
-                      fontWeight: 600,
-                      letterSpacing: '-0.01em',
-                    }}
-                  >
-                    {stat.label}
-                  </div>
-                  <div 
-                    style={{ 
-                      color: 'rgba(0, 0, 0, 0.5)',
-                      fontSize: '12px',
-                      letterSpacing: '0.02em',
-                    }}
-                  >
-                    {stat.caption}
-                  </div>
-                </div>
-              </div>
-              {/* Decorative corner accent */}
-              <div 
-                className="absolute top-0 right-0 w-16 h-16 opacity-[0.08]"
-                style={{
-                  background: `radial-gradient(circle at top right, ${stat.color} 0%, transparent 70%)`,
-                }}
-                aria-hidden="true"
-              />
-            </div>
-          </BentoCard>
-        ))}
-
-        {/* Robust Card */}
-        <BentoCard span="1x2" delay={0.5}>
-          <div className="h-full flex flex-col justify-between p-6">
+        {/* Comprehensive Card */}
+        <BentoCard span="lg:col-span-4 lg:row-span-2" delay={0.45}>
+          <div className="h-full flex flex-col justify-between">
             <div>
               <div 
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                className="w-16 h-16 rounded-xl flex items-center justify-center mb-6"
+                style={{
+                  background: 'linear-gradient(135deg, var(--state-info) 0%, #4F46E5 100%)',
+                  boxShadow: '0 4px 16px rgba(99, 102, 241, 0.25)',
+                }}
+              >
+                <Info className="w-8 h-8" style={{ color: 'white' }} strokeWidth={2} />
+              </div>
+              <h4 
+                className="mb-4" 
+                style={{ 
+                  color: 'black',
+                  fontSize: '24px',
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Comprehensive
+              </h4>
+              <p 
+                className="leading-relaxed mb-6" 
+                style={{ 
+                  color: 'rgba(0, 0, 0, 0.6)',
+                  fontSize: '15px',
+                  lineHeight: '1.7',
+                }}
+              >
+                Complete foundation including color palette, typography system, spacing grid, and production-ready components.
+              </p>
+            </div>
+            <div 
+              className="flex items-center gap-2 px-4 py-2.5 rounded-lg w-fit" 
+              style={{ 
+                backgroundColor: 'rgba(99, 102, 241, 0.08)',
+                border: '1px solid rgba(99, 102, 241, 0.2)',
+              }}
+            >
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--state-info)' }} />
+              <span 
+                style={{ 
+                  color: 'var(--state-info)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                End-to-End System
+              </span>
+            </div>
+          </div>
+        </BentoCard>
+
+        {/* Robust Card */}
+        <BentoCard span="lg:col-span-12 lg:row-span-1" delay={0.5}>
+          <div className="h-full flex items-center justify-between gap-8">
+            <div className="flex items-center gap-6">
+              <div 
+                className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{
                   background: 'linear-gradient(135deg, var(--state-warning) 0%, #D97706 100%)',
                   boxShadow: '0 4px 16px rgba(245, 158, 11, 0.25)',
                 }}
               >
-                <Shield className="w-7 h-7" style={{ color: 'white' }} strokeWidth={2} />
+                <Shield className="w-8 h-8" style={{ color: 'white' }} strokeWidth={2} />
               </div>
-              <h4 
-                className="mb-3" 
-                style={{ 
-                  color: 'black',
-                  fontSize: '20px',
-                  letterSpacing: '-0.01em',
-                }}
-              >
-                Robust
-              </h4>
-              <p 
-                className="mb-6 leading-relaxed" 
-                style={{ 
-                  color: 'rgba(0, 0, 0, 0.6)',
-                  fontSize: '14px',
-                  lineHeight: '1.6',
-                }}
-              >
-                Built with enterprise-grade standards, comprehensive documentation, and accessibility best practices.
-              </p>
-              <div 
-                className="flex items-center gap-2 px-3 py-2 rounded-lg w-fit mb-6" 
-                style={{ 
-                  backgroundColor: 'rgba(245, 158, 11, 0.08)',
-                  border: '1px solid rgba(245, 158, 11, 0.2)',
-                }}
-              >
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--state-warning)' }} />
-                <span 
+              <div>
+                <h4 
+                  className="mb-2" 
                   style={{ 
-                    color: 'var(--state-warning)',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    letterSpacing: '0.05em',
-                    textTransform: 'uppercase',
+                    color: 'black',
+                    fontSize: '24px',
+                    letterSpacing: '-0.01em',
                   }}
                 >
-                  Enterprise Ready
-                </span>
+                  Robust
+                </h4>
+                <p 
+                  className="leading-relaxed max-w-2xl" 
+                  style={{ 
+                    color: 'rgba(0, 0, 0, 0.6)',
+                    fontSize: '15px',
+                    lineHeight: '1.6',
+                  }}
+                >
+                  Built with enterprise-grade standards, comprehensive documentation, and accessibility best practices.
+                </p>
               </div>
             </div>
             {/* Feature list */}
-            <div className="space-y-2 pt-4 border-t" style={{ borderColor: 'rgba(0, 0, 0, 0.08)' }}>
+            <div className="hidden lg:flex items-center gap-6">
               {['Type Safety', 'Documentation', 'Best Practices'].map((feature) => (
                 <div 
                   key={feature} 
-                  className="flex items-center gap-3 group"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg"
                   style={{ 
-                    color: 'rgba(0, 0, 0, 0.5)',
-                    fontSize: '13px',
+                    backgroundColor: 'rgba(245, 158, 11, 0.06)',
+                    border: '1px solid rgba(245, 158, 11, 0.15)',
                   }}
                 >
                   <div 
-                    className="w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover:scale-125" 
-                    style={{ backgroundColor: 'rgba(245, 158, 11, 0.4)' }} 
+                    className="w-1.5 h-1.5 rounded-full" 
+                    style={{ backgroundColor: 'var(--state-warning)' }} 
                   />
-                  <span className="transition-colors duration-300 group-hover:text-black">{feature}</span>
+                  <span style={{ color: 'rgba(0, 0, 0, 0.7)', fontSize: '13px', fontWeight: 500 }}>{feature}</span>
                 </div>
               ))}
             </div>
@@ -557,7 +554,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{
-      background: 'linear-gradient(180deg, #0A0F1C 0%, #0D1421 50%, #111827 100%)',
+      background: '#FAFAFA',
     }}>
       <ScrollProgress />
       <CommandPalette />
@@ -736,23 +733,23 @@ export default function App() {
                     >
                       <div className="space-y-[var(--space-4)]">
                         <div className="flex flex-wrap gap-3 sm:gap-[var(--space-4)]">
-                          {(['small', 'medium', 'large'] as const).map((size) => (
+                          {(['sm', 'md', 'lg'] as const).map((size) => (
                             <DesignSystemButton key={`primary-${size}`} variant="primary" size={size}>
-                              Primary {size.charAt(0).toUpperCase() + size.slice(1)}
+                              Primary {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
                             </DesignSystemButton>
                           ))}
                         </div>
                         <div className="flex flex-wrap gap-3 sm:gap-[var(--space-4)]">
-                          {(['small', 'medium', 'large'] as const).map((size) => (
+                          {(['sm', 'md', 'lg'] as const).map((size) => (
                             <DesignSystemButton key={`secondary-${size}`} variant="secondary" size={size}>
-                              Secondary {size.charAt(0).toUpperCase() + size.slice(1)}
+                              Secondary {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
                             </DesignSystemButton>
                           ))}
                         </div>
                         <div className="flex flex-wrap gap-3 sm:gap-[var(--space-4)]">
-                          {(['small', 'medium', 'large'] as const).map((size) => (
+                          {(['sm', 'md', 'lg'] as const).map((size) => (
                             <DesignSystemButton key={`ghost-${size}`} variant="ghost" size={size}>
-                              Ghost {size.charAt(0).toUpperCase() + size.slice(1)}
+                              Ghost {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
                             </DesignSystemButton>
                           ))}
                         </div>
@@ -831,6 +828,29 @@ export default function App() {
             </Section>
           </RevealSection>
         </div>
+
+        <EditorialDivider variant="accent" />
+
+        {/* Buttons Component Section - Section 04 */}
+        <div className="py-12 sm:py-16 md:py-20 lg:py-32">
+          <ButtonsSection />
+        </div>
+
+        <EditorialDivider variant="ornament" />
+
+        {/* Form Inputs Component Section - Section 05 */}
+        <div className="py-12 sm:py-16 md:py-20 lg:py-32">
+          <FormInputsSection />
+        </div>
+
+        <EditorialDivider variant="accent" />
+
+        {/* Cards Component Section - Section 06 */}
+        <div className="py-12 sm:py-16 md:py-20 lg:py-32">
+          <CardsSection />
+        </div>
+
+        <EditorialDivider variant="ornament" />
 
         {/* Design Tokens Section */}
         <div className="py-12 sm:py-16 md:py-20 lg:py-32">

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useMemo, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavItem {
   label: string;
@@ -14,6 +15,39 @@ const navItems: NavItem[] = [
   { label: 'Components', href: '#components' },
   { label: 'Tokens', href: '#tokens' },
 ];
+
+// Custom hook for scroll direction
+function useScrollDir() {
+  const [scrollDir, setScrollDir] = useState<'up' | 'down'>('up');
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    const updateScrollDir = () => {
+      const scrollY = window.scrollY;
+      if (Math.abs(scrollY - lastScrollY) < 5) {
+        ticking = false;
+        return;
+      }
+      setScrollDir(scrollY > lastScrollY ? 'down' : 'up');
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollDir);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return scrollDir;
+}
 
 export const Navigation = memo(function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,10 +110,33 @@ export const Navigation = memo(function Navigation() {
     const element = document.getElementById(id);
     if (element) {
       const offsetTop = element.offsetTop - 100;
-      window.scrollTo({ 
-        top: offsetTop, 
-        behavior: 'smooth' 
-      });
+      
+      // Butter smooth scroll with custom easing
+      const startPosition = window.scrollY;
+      const distance = offsetTop - startPosition;
+      const duration = 800; // Slightly longer for smoothness
+      let start: number | null = null;
+
+      const easeInOutCubic = (t: number): number => {
+        return t < 0.5 
+          ? 4 * t * t * t 
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      };
+
+      const animation = (currentTime: number) => {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const progress = Math.min(timeElapsed / duration, 1);
+        const ease = easeInOutCubic(progress);
+        
+        window.scrollTo(0, startPosition + distance * ease);
+        
+        if (timeElapsed < duration) {
+          requestAnimationFrame(animation);
+        }
+      };
+
+      requestAnimationFrame(animation);
     }
   }, []);
 
@@ -133,22 +190,26 @@ export const Navigation = memo(function Navigation() {
                             e.preventDefault();
                             handleNavClick(index, item.href);
                           }}
-                          className="px-4 py-2 rounded-lg transition-all duration-200 text-sm relative"
+                          className="px-4 py-2 rounded-full transition-all duration-300 text-sm relative"
                           style={{
                             color: isActive ? tokens.lightest : tokens.light,
                             backgroundColor: isActive ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
                           }}
                         >
-                          {item.label}
                           {isActive && (
                             <motion.div
                               layoutId="floatingActiveTab"
-                              className="absolute inset-0 rounded-lg"
+                              className="absolute inset-0 rounded-full"
                               style={{
                                 backgroundColor: 'rgba(255, 56, 0, 0.15)',
                                 border: '1px solid rgba(255, 56, 0, 0.3)',
                               }}
-                              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                              transition={{ 
+                                type: 'spring',
+                                stiffness: 500,
+                                damping: 35,
+                                mass: 0.5,
+                              }}
                             />
                           )}
                           <span className="relative z-10">{item.label}</span>

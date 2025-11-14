@@ -26,11 +26,11 @@ const handleScrollTo = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) 
 export const Hero = memo(function Hero() {
   const { scrollY } = useScroll();
   
-  // Parallax effects
-  const y1 = useTransform(scrollY, [0, 500], [0, 150]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -100]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-  const scale = useTransform(scrollY, [0, 300], [1, 0.95]);
+  // Refined, subtle parallax effects with smooth spring physics
+  const y1 = useTransform(scrollY, [0, 600], [0, 100], { clamp: true });
+  const y2 = useTransform(scrollY, [0, 600], [0, -60], { clamp: true });
+  const opacity = useTransform(scrollY, [0, 200, 400], [1, 0.8, 0], { clamp: true });
+  const scale = useTransform(scrollY, [0, 400], [1, 0.98], { clamp: true });
 
   return (
     <section
@@ -194,13 +194,18 @@ export const Hero = memo(function Hero() {
                   style={{ backgroundColor: 'var(--border-default)' }}
                 />
                 <span 
-                  className="overline tracking-[0.2em]"
+                  className="overline tracking-[0.2em] inline-flex items-center gap-3"
                   style={{ 
-                    color: 'color-mix(in srgb, var(--text-primary) 60%, transparent)',
+                    color: 'var(--text-primary)',
                     fontSize: 'clamp(9px, 1.5vw, 11px)',
+                    fontWeight: 600,
+                    background: 'linear-gradient(135deg, var(--text-primary), color-mix(in srgb, var(--action-primary) 80%, var(--text-primary)))',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
                   }}
                 >
-                  ISSUE 1.0 — 2025
+                  VOLUME I — KORWIN DESIGN SYSTEM — MMXXV
                 </span>
               </motion.div>
 
@@ -220,9 +225,18 @@ export const Hero = memo(function Hero() {
               >
                 Korwin
                 <br />
-                <span
+                <motion.span
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
                   style={{
-                    background: 'linear-gradient(135deg, var(--action-primary) 0%, var(--action-secondary) 100%)',
+                    background: 'linear-gradient(135deg, var(--action-primary) 0%, var(--action-secondary) 50%, var(--action-primary) 100%)',
+                    backgroundSize: '200% 100%',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -230,7 +244,7 @@ export const Hero = memo(function Hero() {
                   }}
                 >
                   Design System
-                </span>
+                </motion.span>
               </motion.h1>
 
               {/* Editorial Description */}

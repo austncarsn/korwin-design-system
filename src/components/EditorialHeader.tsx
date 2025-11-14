@@ -50,12 +50,23 @@ export const EditorialHeader = memo(function EditorialHeader({
           )}
           {eyebrow && (
             <span
-              className="overline tracking-[0.15em]"
+              className="tracking-[0.15em] inline-flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300"
               style={{
-                color: 'var(--text-secondary)',
-                fontSize: '12px',
+                color: 'var(--text-primary)',
+                fontSize: '11px',
+                backgroundColor: 'color-mix(in srgb, var(--action-primary) 6%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--action-primary) 12%, transparent)',
+                fontWeight: 600,
+                letterSpacing: '0.12em',
               }}
             >
+              <span 
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, var(--action-primary), var(--action-secondary))',
+                  boxShadow: '0 0 8px rgba(16, 185, 129, 0.4)',
+                }}
+              />
               {eyebrow}
             </span>
           )}

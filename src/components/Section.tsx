@@ -55,11 +55,13 @@ export const Section = memo(function Section({
         <h2
           className="mb-8 text-balance"
           style={{ 
+            /* Typography System: Display (Instrument Serif) for editorial sections | Body (Inter) for component/UI sections */
             color: 'black',
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(40px, 5vw, 64px)',
-            lineHeight: '1.1',
-            letterSpacing: '-0.03em',
+            fontFamily: 'var(--font-body)', /* Inter - for component documentation sections */
+            fontSize: 'clamp(32px, 4vw, 48px)',
+            fontWeight: 700,
+            lineHeight: '1.2',
+            letterSpacing: '-0.025em',
           }}
         >
           {title}

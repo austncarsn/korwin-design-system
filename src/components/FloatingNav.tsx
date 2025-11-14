@@ -12,7 +12,9 @@ const NAV_ITEMS: readonly NavItem[] = [
   { label: 'Colors', href: '#colors' },
   { label: 'Typography', href: '#typography' },
   { label: 'Spacing', href: '#spacing' },
-  { label: 'Components', href: '#components' },
+  { label: 'Buttons', href: '#buttons' },
+  { label: 'Form Inputs', href: '#form-inputs' },
+  { label: 'Cards', href: '#cards' },
   { label: 'Tokens', href: '#tokens' },
 ] as const;
 
@@ -104,23 +106,23 @@ export const FloatingNav = memo(function FloatingNav() {
             className="px-2 py-2 rounded-2xl border glass relative overflow-hidden"
             style={{
               background: `
-                radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
-                radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
-                linear-gradient(135deg, #0A0F1C 0%, #0D1421 50%, #111827 100%)
+                radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.04) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 250, 250, 0.96) 50%, rgba(255, 255, 255, 0.98) 100%)
               `,
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              borderColor: 'rgba(16, 185, 129, 0.25)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(16, 185, 129, 0.2), inset 0 1px 0 0 rgba(16, 185, 129, 0.1)',
+              borderColor: 'rgba(0, 0, 0, 0.08)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(16, 185, 129, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.8)',
             }}
           >
             {/* Tennis Court Grid Background */}
             <div
-              className="absolute inset-0 opacity-[0.025] pointer-events-none"
+              className="absolute inset-0 opacity-[0.035] pointer-events-none"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, rgba(16, 185, 129, 0.4) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(16, 185, 129, 0.4) 1px, transparent 1px)
+                  linear-gradient(to right, rgba(16, 185, 129, 0.3) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(16, 185, 129, 0.3) 1px, transparent 1px)
                 `,
                 backgroundSize: '12px 12px',
               }}
@@ -129,9 +131,9 @@ export const FloatingNav = memo(function FloatingNav() {
 
             {/* Subtle glow orb */}
             <div 
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full blur-2xl opacity-20 pointer-events-none"
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full blur-2xl opacity-10 pointer-events-none"
               style={{
-                background: 'radial-gradient(circle, rgba(16, 185, 129, 0.6) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)',
               }}
             />
 

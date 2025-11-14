@@ -5,11 +5,13 @@ import { useScrollProgress } from '../hooks/useScrollProgress';
 export const ScrollProgress = memo(function ScrollProgress() {
   const progress = useScrollProgress();
 
-  // Use spring physics for ultra-smooth 60fps animation
+  // Refined spring physics for silky smooth 60fps animation
   const smoothProgress = useSpring(progress, {
-    damping: 30,
-    stiffness: 200,
-    mass: 0.5,
+    damping: 25,
+    stiffness: 120,
+    mass: 0.3,
+    restDelta: 0.001,
+    restSpeed: 0.001,
   });
 
   const scaleX = useTransform(smoothProgress, [0, 100], [0, 1]);
@@ -18,7 +20,7 @@ export const ScrollProgress = memo(function ScrollProgress() {
     <motion.div
       className="fixed top-0 left-0 right-0 h-1 z-[100] origin-left will-change-transform"
       style={{
-        background: 'linear-gradient(90deg, var(--action-primary) 0%, #FF6F33 100%)',
+        background: 'linear-gradient(90deg, var(--action-primary) 0%, var(--action-secondary) 100%)',
         scaleX,
       }}
       role="progressbar"

@@ -10,9 +10,12 @@ interface RevealSectionProps {
 }
 
 const ANIMATION_CONFIG = {
-  initial: { opacity: 0, y: 32 },
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  transition: { 
+    duration: 0.7, 
+    ease: [0.25, 0.1, 0.25, 1], // Refined cubic-bezier for smoother motion
+  },
 } as const;
 
 export const RevealSection = memo(function RevealSection({
@@ -21,7 +24,7 @@ export const RevealSection = memo(function RevealSection({
   delay = 0,
   stagger = false,
 }: RevealSectionProps) {
-  const { ref, isVisible } = useScrollReveal(0.15, '-80px');
+  const { ref, isVisible } = useScrollReveal(0.1, '-60px');
 
   const animationVariants = useMemo(
     () => ({
@@ -40,8 +43,8 @@ export const RevealSection = memo(function RevealSection({
         ...ANIMATION_CONFIG.transition,
         delay,
         ...(stagger && {
-          staggerChildren: 0.1,
-          delayChildren: delay + 0.2,
+          staggerChildren: 0.08,
+          delayChildren: delay + 0.15,
         }),
       }}
       className="mb-24 md:mb-32"

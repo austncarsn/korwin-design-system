@@ -5,7 +5,7 @@ import { useScrollReveal } from '../hooks/useScrollReveal';
 interface BentoCardProps {
   children: React.ReactNode;
   className?: string;
-  span?: '1x1' | '2x1' | '1x2' | '2x2' | '3x1' | '3x2';
+  span?: '1x1' | '2x1' | '1x2' | '2x2' | '3x1' | '3x2' | string;
   delay?: number;
   interactive?: boolean;
   gradient?: boolean;
@@ -21,9 +21,9 @@ const SPAN_CLASSES = {
 } as const;
 
 const ANIMATION_CONFIG = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.65, ease: [0.25, 0.1, 0.25, 1] },
 } as const;
 
 export const BentoCard = memo(function BentoCard({
@@ -78,9 +78,14 @@ export const BentoCard = memo(function BentoCard({
   }, [interactive, mouseX, mouseY]);
 
   const cardClasses = useMemo(
-    () =>
-      `
-        ${SPAN_CLASSES[span]}
+    () => {
+      // Check if span is a predefined class or a custom Tailwind class string
+      const spanClass = typeof span === 'string' && span in SPAN_CLASSES 
+        ? SPAN_CLASSES[span as keyof typeof SPAN_CLASSES]
+        : span;
+      
+      return `
+        ${spanClass}
         relative
         overflow-hidden
         border
@@ -89,7 +94,8 @@ export const BentoCard = memo(function BentoCard({
         will-change-transform
         ${interactive ? 'cursor-pointer' : ''}
         ${className}
-      `.trim(),
+      `.trim();
+    },
     [span, interactive, className]
   );
 

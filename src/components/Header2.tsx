@@ -100,13 +100,13 @@ export const Header2 = memo(function Header2() {
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
                 style={{
-                  backgroundColor: 'black',
-                  border: '2px solid black',
+                  backgroundColor: 'white',
+                  border: '2px solid rgba(0, 0, 0, 0.12)',
                 }}
               >
                 <span
                   style={{
-                    color: 'white',
+                    color: 'black',
                     fontFamily: 'var(--font-display)',
                     fontSize: '16px',
                     fontWeight: 600,
@@ -119,28 +119,28 @@ export const Header2 = memo(function Header2() {
             </motion.a>
 
             {/* Desktop Navigation - Centered */}
-            <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
+            <nav className="hidden md:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
               {NAV_ITEMS.map((item, index) => {
                 const isActive = activeSection === item.href;
                 return (
                   <motion.a
                     key={item.href}
                     href={item.href}
-                    className="relative px-3 sm:px-4 py-2 rounded-lg transition-all duration-300"
+                    className="relative px-4 sm:px-5 py-2.5 rounded-2xl transition-all duration-300"
                     style={{
-                      color: isActive ? 'black' : 'rgba(0, 0, 0, 0.6)',
+                      color: isActive ? '#09090B' : '#71717A', // Ash-900 : Ash-500
                     }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onMouseEnter={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.color = 'black';
-                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.05)';
+                        e.currentTarget.style.color = '#09090B';
+                        e.currentTarget.style.backgroundColor = '#F4F4F5'; // Ash-100
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!isActive) {
-                        e.currentTarget.style.color = 'rgba(0, 0, 0, 0.6)';
+                        e.currentTarget.style.color = '#71717A';
                         e.currentTarget.style.backgroundColor = 'transparent';
                       }
                     }}
@@ -150,10 +150,11 @@ export const Header2 = memo(function Header2() {
                     {isActive && (
                       <motion.div
                         layoutId="activeIndicator"
-                        className="absolute inset-0 rounded-lg"
+                        className="absolute inset-0 rounded-2xl"
                         style={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
+                          backgroundColor: '#FAFAFA', // Ash-50
+                          border: '1.5px solid #E4E4E7', // Ash-200
+                          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.06)',
                         }}
                         transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                       />

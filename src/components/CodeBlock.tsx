@@ -38,14 +38,14 @@ export const CodeBlock = memo(function CodeBlock({
         <div
           className="flex items-center justify-between px-5 py-3 border-b rounded-t-2xl"
           style={{
-            backgroundColor: 'var(--bg-inverse)',
-            borderColor: 'var(--border-inverse)',
+            backgroundColor: '#18181B',
+            borderColor: '#27272A',
           }}
         >
           <div className="flex items-center gap-2">
-            <Code2 className="w-4 h-4" style={{ color: 'var(--action-primary)' }} />
+            <Code2 className="w-4 h-4" style={{ color: '#10B981' }} />
             {title && (
-              <span className="label-sm" style={{ color: 'var(--text-inverse)' }}>
+              <span className="label-sm" style={{ color: '#FAFAFA' }}>
                 {title}
               </span>
             )}
@@ -53,8 +53,8 @@ export const CodeBlock = memo(function CodeBlock({
               <span
                 className="caption px-2 py-0.5 rounded"
                 style={{
-                  backgroundColor: 'color-mix(in srgb, var(--action-primary) 20%, transparent)',
-                  color: 'var(--action-primary)',
+                  backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                  color: '#10B981',
                 }}
               >
                 {language}
@@ -68,7 +68,7 @@ export const CodeBlock = memo(function CodeBlock({
       <div
         className={`relative overflow-hidden ${title || language ? 'rounded-b-2xl' : 'rounded-2xl'}`}
         style={{
-          backgroundColor: 'var(--bg-inverse)',
+          backgroundColor: '#18181B',
         }}
       >
         {/* Copy Button */}
@@ -121,7 +121,7 @@ export const CodeBlock = memo(function CodeBlock({
           <pre
             className="p-6 pr-24"
             style={{
-              color: 'var(--text-inverse)',
+              color: '#FAFAFA',
             }}
           >
             {showLineNumbers ? (
@@ -130,7 +130,7 @@ export const CodeBlock = memo(function CodeBlock({
                   <div key={index} className="flex">
                     <span
                       className="select-none inline-block w-8 text-right mr-6 opacity-40"
-                      style={{ color: 'var(--text-inverse)' }}
+                      style={{ color: '#FAFAFA' }}
                     >
                       {index + 1}
                     </span>
@@ -139,7 +139,7 @@ export const CodeBlock = memo(function CodeBlock({
                 ))}
               </code>
             ) : (
-              <code className="code">{code}</code>
+              <code className="code" style={{ color: '#FAFAFA' }}>{code}</code>
             )}
           </pre>
         </div>
@@ -149,7 +149,7 @@ export const CodeBlock = memo(function CodeBlock({
           <div
             className="absolute bottom-0 left-0 right-0 h-12 pointer-events-none"
             style={{
-              background: 'linear-gradient(to top, var(--bg-inverse), transparent)',
+              background: 'linear-gradient(to top, #18181B, transparent)',
             }}
           />
         )}
