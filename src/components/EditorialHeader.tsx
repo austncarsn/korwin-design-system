@@ -31,18 +31,22 @@ export const EditorialHeader = memo(function EditorialHeader({
           className="flex items-center gap-6 mb-8"
         >
           {number && (
-            <div className="mb-6">
-              <div
-                className="overline inline-flex items-center gap-2 px-3 py-1.5 rounded-md"
+            <>
+              <span
                 style={{
-                  color: 'var(--text-primary)',
-                  backgroundColor: 'color-mix(in srgb, var(--action-primary) 6%, transparent)',
-                  border: '1px solid color-mix(in srgb, var(--action-primary) 12%, transparent)',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '18px',
+                  color: 'var(--action-primary)',
+                  fontStyle: 'italic',
                 }}
               >
                 {number}
-              </div>
-            </div>
+              </span>
+              <div 
+                className="h-px w-12"
+                style={{ backgroundColor: 'var(--border-medium)' }}
+              />
+            </>
           )}
           {eyebrow && (
             <span

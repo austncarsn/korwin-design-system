@@ -16,7 +16,7 @@ export const FormInputsSection = memo(function FormInputsSection() {
       <div className="mt-12 sm:mt-16 space-y-12">
         {/* Text Inputs */}
         <div>
-          <h4 className="mb-6">Text Inputs</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Text Inputs</h3>
           <UIExample
             title="Standard Text Fields"
             description="Text inputs with labels, placeholders, and helper text"
@@ -69,7 +69,7 @@ export const FormInputsSection = memo(function FormInputsSection() {
 
         {/* Textarea */}
         <div>
-          <h4 className="mb-6">Textarea</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Textarea</h3>
           <UIExample
             title="Multi-line Text Input"
             description="Textarea for longer form content"
@@ -100,7 +100,7 @@ export const FormInputsSection = memo(function FormInputsSection() {
 
         {/* Select Dropdown */}
         <div>
-          <h4 className="mb-6">Select Dropdown</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Select Dropdown</h3>
           <UIExample
             title="Dropdown Select"
             description="Select input for choosing from options"
@@ -132,7 +132,7 @@ export const FormInputsSection = memo(function FormInputsSection() {
 
         {/* Checkboxes & Radio */}
         <div>
-          <h4 className="mb-6">Checkboxes & Radio Buttons</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Checkboxes & Radio Buttons</h3>
           <UIExample
             title="Selection Controls"
             description="Checkboxes for multiple selections, radios for single choice"

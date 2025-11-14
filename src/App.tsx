@@ -14,7 +14,6 @@ import { ColorPairing } from './components/ColorPairing';
 import { UIExample } from './components/UIExample';
 import { BentoCard } from './components/BentoCard';
 import { RevealSection } from './components/RevealSection';
-import { ScrollProgress } from './components/ScrollProgress';
 import { CommandPalette } from './components/CommandPalette';
 import { BackToTop } from './components/BackToTop';
 import { EditorialDivider } from './components/EditorialDivider';
@@ -234,8 +233,7 @@ export default function App() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.3) 0%, transparent 100%)' }} />
+                  <div className="mb-3">
                     <span className="caption tracking-[0.15em] uppercase" style={{ color: 'rgba(16, 185, 129, 0.8)' }}>Foundation</span>
                   </div>
                   <h3 
@@ -638,7 +636,6 @@ export default function App() {
     <div className="min-h-screen" style={{
       background: '#FAFAFA',
     }}>
-      <ScrollProgress />
       <CommandPalette />
       <Header />
       <Hero />

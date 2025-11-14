@@ -16,7 +16,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
       <div className="mt-12 sm:mt-16 space-y-12">
         {/* Primary Buttons */}
         <div>
-          <h4 className="mb-6">Primary Actions</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Primary Actions</h3>
           <UIExample
             title="Primary Button Variants"
             description="High-emphasis buttons for primary actions"
@@ -26,7 +26,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
           >
             <div className="flex flex-wrap gap-4">
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#10B981',
                   color: 'white',
@@ -38,7 +38,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Primary
               </button>
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#059669',
                   color: 'white',
@@ -50,7 +50,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Hover State
               </button>
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#D1D5DB',
                   color: '#9CA3AF',
@@ -69,7 +69,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Secondary Buttons */}
         <div>
-          <h4 className="mb-6">Secondary Actions</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Secondary Actions</h3>
           <UIExample
             title="Secondary Button Variants"
             description="Medium-emphasis buttons for secondary actions"
@@ -79,7 +79,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
           >
             <div className="flex flex-wrap gap-4">
               <button
-                className="px-6 py-3 rounded-lg border-2 transition-smooth"
+                className="px-6 py-3 rounded-full border-2 transition-smooth"
                 style={{
                   backgroundColor: 'transparent',
                   color: '#10B981',
@@ -91,7 +91,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Secondary
               </button>
               <button
-                className="px-6 py-3 rounded-lg border-2 transition-smooth"
+                className="px-6 py-3 rounded-full border-2 transition-smooth"
                 style={{
                   backgroundColor: '#ECFDF5',
                   color: '#10B981',
@@ -103,7 +103,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Hover State
               </button>
               <button
-                className="px-6 py-3 rounded-lg border-2 transition-smooth"
+                className="px-6 py-3 rounded-full border-2 transition-smooth"
                 style={{
                   backgroundColor: 'transparent',
                   color: '#D1D5DB',
@@ -122,7 +122,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Button Sizes */}
         <div>
-          <h4 className="mb-6">Size Variants</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Size Variants</h3>
           <UIExample
             title="Button Sizes"
             description="From compact to large, sized for every context"
@@ -132,7 +132,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
           >
             <div className="flex flex-wrap items-center gap-4">
               <button
-                className="px-4 py-2 rounded-lg transition-smooth"
+                className="px-4 py-2 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#10B981',
                   color: 'white',
@@ -145,7 +145,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Small
               </button>
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#10B981',
                   color: 'white',
@@ -158,7 +158,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Medium
               </button>
               <button
-                className="px-8 py-4 rounded-lg transition-smooth"
+                className="px-8 py-4 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#10B981',
                   color: 'white',
@@ -176,7 +176,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
 
         {/* Ghost Buttons */}
         <div>
-          <h4 className="mb-6">Ghost & Text Buttons</h4>
+          <h3 className="mb-6" style={{ color: '#09090B', fontSize: '24px' }}>Ghost & Text Buttons</h3>
           <UIExample
             title="Low-Emphasis Buttons"
             description="Subtle buttons for tertiary actions"
@@ -186,7 +186,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
           >
             <div className="flex flex-wrap gap-4">
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: 'transparent',
                   color: '#09090B',
@@ -198,7 +198,7 @@ export const ButtonsSection = memo(function ButtonsSection() {
                 Ghost
               </button>
               <button
-                className="px-6 py-3 rounded-lg transition-smooth"
+                className="px-6 py-3 rounded-full transition-smooth"
                 style={{
                   backgroundColor: '#F4F4F5',
                   color: '#09090B',
