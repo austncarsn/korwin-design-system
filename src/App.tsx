@@ -23,6 +23,7 @@ import { Footer } from './components/Footer';
 import { ButtonsSection } from './components/ButtonsSection';
 import { FormInputsSection } from './components/FormInputsSection';
 import { CardsSection } from './components/CardsSection';
+import { ScrollFadeIn } from './components/ScrollAnimations';
 import {
   CheckCircle,
   AlertCircle,
@@ -221,6 +222,13 @@ export default function App() {
                 style={{
                   background: 'linear-gradient(135deg, var(--action-primary) 0%, #059669 100%)',
                   boxShadow: '0 8px 32px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                  // Lock aspect ratio and add performance hints
+                  aspectRatio: '1 / 1',
+                  flexShrink: 0,
+                  transform: 'translateZ(0)',
+                  willChange: 'transform',
+                  // 8px padding buffer around interactive element
+                  padding: '8px',
                 }}
               >
                 <Palette className="w-10 h-10" style={{ color: 'white' }} strokeWidth={1.5} />
@@ -242,18 +250,7 @@ export default function App() {
                       color: 'black',
                     }}
                   >
-                    <motion.span
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ 
-                        duration: 0.8, 
-                        delay: 0.3,
-                        ease: [0.22, 1, 0.36, 1] 
-                      }}
-                      style={{ display: 'inline-block' }}
-                    >
-                      Design System
-                    </motion.span>
+                    Design System
                   </h3>
                 </div>
                 <p 
@@ -328,13 +325,23 @@ export default function App() {
           },
         ].map((stat, index) => (
           <BentoCard key={stat.label} span={`lg:col-span-4 lg:row-span-1 ${index === 0 ? 'lg:col-start-9' : ''}`} delay={stat.delay}>
-            <div className="h-full flex flex-col items-center justify-center text-center relative">
-              {/* Simplified background - no animation, static */}
+            <div 
+              className="h-full flex flex-col items-center justify-center text-center relative"
+              style={{
+                // Force GPU acceleration for smooth scrolling
+                transform: 'translateZ(0)',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+              }}
+            >
+              {/* Simplified background - static, no animation */}
               <div
                 className="absolute inset-0 rounded-2xl pointer-events-none"
                 style={{ 
                   background: stat.gradient,
                   opacity: 0.04,
+                  // GPU acceleration
+                  transform: 'translateZ(0)',
                 }}
                 aria-hidden="true"
               />
@@ -347,6 +354,7 @@ export default function App() {
                     lineHeight: '1',
                     letterSpacing: '-0.03em',
                     fontWeight: 400,
+                    minHeight: '56px', // Explicit height to prevent reflow
                   }}
                 >
                   {stat.value}
@@ -359,6 +367,7 @@ export default function App() {
                       fontSize: '15px',
                       fontWeight: 600,
                       letterSpacing: '-0.01em',
+                      minHeight: '22px', // Explicit height to prevent reflow
                     }}
                   >
                     {stat.label}
@@ -368,6 +377,7 @@ export default function App() {
                       color: 'rgba(0, 0, 0, 0.5)',
                       fontSize: '12px',
                       letterSpacing: '0.02em',
+                      minHeight: '18px', // Explicit height to prevent reflow
                     }}
                   >
                     {stat.caption}
@@ -387,6 +397,12 @@ export default function App() {
                 style={{
                   background: 'linear-gradient(135deg, var(--state-success) 0%, #059669 100%)',
                   boxShadow: '0 4px 16px rgba(16, 185, 129, 0.25)',
+                  // Lock aspect ratio + performance hints
+                  aspectRatio: '1 / 1',
+                  flexShrink: 0,
+                  transform: 'translateZ(0)',
+                  willChange: 'transform',
+                  padding: '8px',
                 }}
               >
                 <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8" style={{ color: 'white' }} strokeWidth={2} />
@@ -399,6 +415,7 @@ export default function App() {
                   fontSize: 'clamp(20px, 4vw, 24px)',
                   fontWeight: 600,
                   letterSpacing: '-0.01em',
+                  minHeight: '28px', // Explicit height to prevent reflow
                 }}
               >
                 Accessible
@@ -409,6 +426,7 @@ export default function App() {
                   color: 'rgba(0, 0, 0, 0.6)',
                   fontSize: 'clamp(14px, 3vw, 15px)',
                   lineHeight: '1.7',
+                  minHeight: '78px', // Explicit height to prevent reflow
                 }}
               >
                 All colors meet WCAG AA/AAA standards with carefully tested contrast ratios for maximum readability across all interfaces.

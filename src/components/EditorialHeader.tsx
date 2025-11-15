@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 
 interface EditorialHeaderProps {
   eyebrow?: string;
@@ -23,13 +22,7 @@ export const EditorialHeader = memo(function EditorialHeader({
     <div className={`flex flex-col ${alignClass} ${maxWidthClass} mb-16 md:mb-24`}>
       {/* Number + Eyebrow */}
       {(number || eyebrow) && (
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex items-center gap-6 mb-8"
-        >
+        <div className="flex items-center gap-6 mb-8">
           {number && (
             <>
               <span
@@ -70,15 +63,11 @@ export const EditorialHeader = memo(function EditorialHeader({
               {eyebrow}
             </span>
           )}
-        </motion.div>
+        </div>
       )}
 
       {/* Title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+      <h2
         style={{
           fontFamily: 'var(--font-display)',
           fontSize: 'clamp(40px, 5vw, 72px)',
@@ -89,15 +78,11 @@ export const EditorialHeader = memo(function EditorialHeader({
         }}
       >
         {title}
-      </motion.h2>
+      </h2>
 
       {/* Subtitle */}
       {subtitle && (
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        <p
           className={align === 'center' ? 'max-w-3xl' : 'max-w-2xl'}
           style={{
             fontSize: '20px',
@@ -107,7 +92,7 @@ export const EditorialHeader = memo(function EditorialHeader({
           }}
         >
           {subtitle}
-        </motion.p>
+        </p>
       )}
     </div>
   );

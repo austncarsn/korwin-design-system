@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 import { Github, Twitter, Linkedin, Mail, Heart, ArrowUpRight } from 'lucide-react';
 
 const FOOTER_LINKS = {
@@ -50,12 +49,7 @@ export const Footer = memo(function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
+            <div>
               {/* Logo */}
               <div className="flex items-center gap-4 mb-6">
                 <div
@@ -106,13 +100,11 @@ export const Footer = memo(function Footer() {
               {/* Social Links */}
               <div className="flex items-center gap-3">
                 {SOCIAL_LINKS.map(({ icon: Icon, label, href }) => (
-                  <motion.a
+                  <a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.95 }}
                     className="w-11 h-11 rounded-xl flex items-center justify-center transition-smooth will-change-transform"
                     style={{
                       backgroundColor: 'rgba(0, 0, 0, 0.05)',
@@ -129,20 +121,16 @@ export const Footer = memo(function Footer() {
                     aria-label={label}
                   >
                     <Icon className="w-5 h-5" strokeWidth={2} />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Links Columns */}
           {Object.entries(FOOTER_LINKS).map(([category, links], columnIndex) => (
-            <motion.div
+            <div
               key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: columnIndex * 0.1 }}
               className="lg:col-span-2"
             >
               <h4 className="label-md mb-4 uppercase" style={{ color: 'black' }}>
@@ -171,23 +159,19 @@ export const Footer = memo(function Footer() {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+        <div
           className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4"
           style={{ borderColor: 'rgba(0, 0, 0, 0.1)' }}
         >
           <div className="flex items-center gap-2 caption" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
             <span>© 2025 Korwin. Created by Austin Carson</span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

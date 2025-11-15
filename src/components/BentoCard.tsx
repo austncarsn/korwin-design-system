@@ -24,12 +24,12 @@ const ANIMATION_CONFIG = {
   desktop: {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }, // Max 300ms, ease-out only
   },
   mobile: {
     initial: { opacity: 0, y: 6 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }, // Ease-out only
   },
   reduced: {
     initial: { opacity: 0 },
@@ -46,7 +46,8 @@ export const BentoCard = memo(function BentoCard({
   interactive = false,
   gradient = false,
 }: BentoCardProps) {
-  const { ref, isVisible } = useScrollReveal(0.1, '-50px');
+  // DISABLED: Scroll animations causing glitches
+  // const { ref, isVisible } = useScrollReveal(0.1, '-50px');
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -83,26 +84,10 @@ export const BentoCard = memo(function BentoCard({
     [span, interactive, className]
   );
 
-  const config = isMobile ? ANIMATION_CONFIG.mobile : ANIMATION_CONFIG.desktop;
-
-  const animationVariants = useMemo(
-    () => ({
-      initial: config.initial,
-      animate: isVisible ? config.animate : config.initial,
-    }),
-    [isVisible, config]
-  );
-
+  // Render immediately - no scroll animations
   return (
-    <motion.div
-      ref={(node) => {
-        // @ts-ignore
-        ref.current = node;
-        // @ts-ignore
-        cardRef.current = node;
-      }}
-      {...animationVariants}
-      transition={{ ...config.transition, delay: isMobile ? delay * 0.6 : delay }}
+    <div
+      ref={cardRef}
       style={{
         // Single clean background - no stacking
         background: isHovered && interactive
@@ -118,9 +103,11 @@ export const BentoCard = memo(function BentoCard({
         // Force GPU acceleration with translate3d
         transform: 'translate3d(0, 0, 0)',
         backfaceVisibility: 'hidden' as const,
+        // Smooth transitions only for hover
+        transition: 'background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out',
       }}
-      onHoverStart={() => !isMobile && setIsHovered(true)}
-      onHoverEnd={() => !isMobile && setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
       className={cardClasses}
     >
       {/* Subtle noise texture - minimal opacity */}
@@ -134,6 +121,6 @@ export const BentoCard = memo(function BentoCard({
 
       {/* Content with proper z-index */}
       <div className="relative z-10 h-full p-4 sm:p-5 md:p-6 lg:p-8">{children}</div>
-    </motion.div>
+    </div>
   );
 });
