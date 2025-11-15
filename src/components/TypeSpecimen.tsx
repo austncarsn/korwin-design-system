@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 
 interface TypeSpecimenProps {
   className?: string;
@@ -17,11 +16,7 @@ export const TypeSpecimen = memo(function TypeSpecimen({
   specs,
 }: TypeSpecimenProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    <div
       className="group py-8 border-b transition-smooth last:border-b-0"
       style={{ borderColor: 'var(--border-subtle)' }}
     >
@@ -57,17 +52,20 @@ export const TypeSpecimen = memo(function TypeSpecimen({
       </div>
 
       {/* Hover indicator */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 0 }}
-        whileHover={{ scaleX: 1 }}
-        className="h-px mt-8 origin-left"
+      <div
+        className="h-px mt-8 origin-left transition-all duration-300"
         style={{
           background:
             'linear-gradient(90deg, var(--action-primary) 0%, transparent 100%)',
+          transform: 'scaleX(0)',
         }}
-        transition={{ duration: 0.3 }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'scaleX(1)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = 'scaleX(0)';
+        }}
       />
-    </motion.div>
+    </div>
   );
 });

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { motion } from 'motion/react';
 
 interface SectionProps {
   id?: string;
@@ -27,13 +26,7 @@ export const Section = memo(function Section({
         borderBottom: '1px solid rgba(0, 0, 0, 0.08)',
       }}
     >
-      <motion.header
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="mb-20 md:mb-28 relative z-10"
-      >
+      <header className="mb-20 md:mb-28 relative z-10">
         {eyebrow && (
           <div className="flex items-center gap-4 mb-8">
             <div 
@@ -80,7 +73,7 @@ export const Section = memo(function Section({
             {description}
           </p>
         )}
-      </motion.header>
+      </header>
       
       <div className="relative z-10">
         {children}
