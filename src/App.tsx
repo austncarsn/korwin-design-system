@@ -274,7 +274,7 @@ export default function App() {
               ].map((tag) => (
                 <div
                   key={tag.label}
-                  className="overline px-4 py-2 rounded-full transition-all duration-300 hover:scale-105"
+                  className="overline px-4 py-2 rounded-full transition-all duration-300"
                   style={{
                     backgroundColor: tag.bg,
                     border: `1px solid ${tag.color}20`,
@@ -328,11 +328,14 @@ export default function App() {
           },
         ].map((stat, index) => (
           <BentoCard key={stat.label} span={`lg:col-span-4 lg:row-span-1 ${index === 0 ? 'lg:col-start-9' : ''}`} delay={stat.delay}>
-            <div className="h-full flex flex-col items-center justify-center text-center relative overflow-hidden">
-              {/* Background gradient decoration */}
+            <div className="h-full flex flex-col items-center justify-center text-center relative">
+              {/* Simplified background - no animation, static */}
               <div
-                className="absolute inset-0 opacity-[0.06] rounded-2xl"
-                style={{ background: stat.gradient }}
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{ 
+                  background: stat.gradient,
+                  opacity: 0.04,
+                }}
                 aria-hidden="true"
               />
               <div className="relative z-10 space-y-3">
@@ -371,14 +374,6 @@ export default function App() {
                   </div>
                 </div>
               </div>
-              {/* Decorative corner accent */}
-              <div 
-                className="absolute top-0 right-0 w-16 h-16 opacity-[0.08]"
-                style={{
-                  background: `radial-gradient(circle at top right, ${stat.color} 0%, transparent 70%)`,
-                }}
-                aria-hidden="true"
-              />
             </div>
           </BentoCard>
         ))}
@@ -635,13 +630,20 @@ export default function App() {
   return (
     <div className="min-h-screen" style={{
       background: '#FAFAFA',
+      // Force GPU acceleration for smooth scrolling
+      transform: 'translate3d(0, 0, 0)',
+      backfaceVisibility: 'hidden' as const,
     }}>
       <CommandPalette />
       <Header />
       <Hero />
       <FloatingNav />
       
-      <main className="container-custom max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8" id="main-content" style={{ backgroundColor: 'white' }}>
+      <main className="container-custom max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8" id="main-content" style={{ 
+        backgroundColor: 'white',
+        // Clip content to prevent overflow flashing
+        overflow: 'clip',
+      }}>
         {/* Overview Section */}
         <div className="py-8 sm:py-12 md:py-16 lg:py-32">
           {overviewSection}

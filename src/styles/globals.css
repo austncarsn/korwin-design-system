@@ -349,7 +349,6 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -357,6 +356,9 @@
     /* Mobile optimization */
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    
+    /* Ultra-smooth scrolling */
+    scroll-behavior: auto; /* Native scroll is actually smoother than CSS smooth scroll */
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -382,10 +384,18 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     position: relative;
     
-    /* Mobile optimizations */
+    /* Ultra-smooth mobile scrolling optimizations */
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
     touch-action: pan-y;
+    
+    /* Force GPU acceleration for smooth scrolling */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
   }
 
   /* Subtle noise texture overlay */
@@ -412,26 +422,6 @@
   /* Smooth transitions */
   .transition-smooth {
     transition: all var(--duration-normal) var(--ease-out);
-  }
-
-  /* Smooth scrolling with momentum on mobile */
-  html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
   }
 
   /* Custom scrollbar styling */

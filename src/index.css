@@ -64,9 +64,6 @@
       --tw-backdrop-sepia: initial;
       --tw-duration: initial;
       --tw-ease: initial;
-      --tw-scale-x: 1;
-      --tw-scale-y: 1;
-      --tw-scale-z: 1;
     }
   }
 }
@@ -628,12 +625,12 @@
   }
 
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    scroll-behavior: auto;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -657,8 +654,11 @@
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
     touch-action: pan-y;
+    backface-visibility: hidden;
+    perspective: 1000px;
     background-attachment: fixed;
     position: relative;
+    transform: translateZ(0);
   }
 
   body:before {
@@ -682,23 +682,6 @@
 
   .transition-smooth {
     transition: all var(--duration-normal) var(--ease-out);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
-    *, :before, :after {
-      transition-duration: .01ms !important;
-      animation-duration: .01ms !important;
-      animation-iteration-count: 1 !important;
-    }
   }
 
   ::-webkit-scrollbar {
@@ -1040,6 +1023,10 @@
 
   .relative {
     position: relative;
+  }
+
+  .static {
+    position: static;
   }
 
   .inset-0 {
@@ -1888,10 +1875,6 @@
     border-bottom-left-radius: var(--radius-2xl);
   }
 
-  .rounded-bl-full {
-    border-bottom-left-radius: 3.40282e38px;
-  }
-
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
@@ -2444,15 +2427,6 @@
   .last\:border-b-0:last-child {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 0;
-  }
-
-  @media (hover: hover) {
-    .hover\:scale-105:hover {
-      --tw-scale-x: 105%;
-      --tw-scale-y: 105%;
-      --tw-scale-z: 105%;
-      scale: var(--tw-scale-x) var(--tw-scale-y);
-    }
   }
 
   @media (hover: hover) {
@@ -3588,24 +3562,6 @@
 @property --tw-ease {
   syntax: "*";
   inherits: false
-}
-
-@property --tw-scale-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-
-@property --tw-scale-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-
-@property --tw-scale-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
 }
 
 @keyframes spin {
