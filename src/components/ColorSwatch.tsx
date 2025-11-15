@@ -31,13 +31,10 @@ export const ColorSwatch = memo(function ColorSwatch({
       onClick={copyToClipboard}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
       whileHover={{ y: -6, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="group w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--action-primary)] focus-visible:ring-offset-2 rounded-xl will-change-transform"
+      className="group w-full text-left outline-none focus-visible:ring-2 focus-visible:ring-[var(--action-primary)] focus-visible:ring-offset-2 rounded-xl"
       aria-label={`Copy ${name} color ${value}`}
     >
       <div
@@ -48,7 +45,6 @@ export const ColorSwatch = memo(function ColorSwatch({
           boxShadow: isHovered
             ? '0 20px 50px -12px rgba(0, 0, 0, 0.35), 0 8px 20px -6px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.4)'
             : '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.2)',
-          transform: isHovered ? 'translateY(-8px)' : 'translateY(0)',
         }}
       >
         {/* Radial gradient overlay for depth - lighter in center, darker at edges */}

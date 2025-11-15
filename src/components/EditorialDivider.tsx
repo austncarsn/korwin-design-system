@@ -12,10 +12,9 @@ export const EditorialDivider = memo(function EditorialDivider({
     return (
       <div className="w-full py-20 flex items-center justify-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="flex items-center gap-4"
         >
           <div 
@@ -50,9 +49,8 @@ export const EditorialDivider = memo(function EditorialDivider({
       <div className="w-full py-24">
         <motion.div
           initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="h-px mx-auto max-w-md"
           style={{
             background: 'linear-gradient(to right, transparent, var(--action-primary), transparent)',
@@ -67,9 +65,8 @@ export const EditorialDivider = memo(function EditorialDivider({
     <div className="w-full py-16">
       <motion.div
         initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="h-px"
         style={{
           backgroundColor: 'var(--border-default)',

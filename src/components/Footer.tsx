@@ -15,12 +15,6 @@ const FOOTER_LINKS = {
     { label: 'GitHub', href: '#' },
     { label: 'Figma File', href: '#' },
   ],
-  company: [
-    { label: 'About', href: '#' },
-    { label: 'Blog', href: '#' },
-    { label: 'Careers', href: '#' },
-    { label: 'Contact', href: '#' },
-  ],
 } as const;
 
 const SOCIAL_LINKS = [
@@ -53,7 +47,7 @@ export const Footer = memo(function Footer() {
 
       <div className="container-custom max-w-[var(--container-3xl)] py-16 sm:py-20 relative z-10 px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-8 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4">
             <motion.div
@@ -179,52 +173,6 @@ export const Footer = memo(function Footer() {
               </ul>
             </motion.div>
           ))}
-
-          {/* Newsletter Column */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="lg:col-span-4"
-          >
-            <h4 className="label-md mb-4 uppercase" style={{ color: 'black' }}>
-              Stay Updated
-            </h4>
-            <p className="body-sm mb-4" style={{ color: 'rgba(0, 0, 0, 0.6)' }}>
-              Get notified about new components, updates, and design resources.
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-3 rounded-xl border bg-white body-sm outline-none focus-visible:ring-2 transition-smooth"
-                style={{
-                  borderColor: 'rgba(0, 0, 0, 0.15)',
-                  color: 'black',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--action-primary)';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.15)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              />
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 rounded-xl label-sm transition-smooth will-change-transform"
-                style={{
-                  backgroundColor: 'var(--action-primary)',
-                  color: 'white',
-                }}
-              >
-                Subscribe
-              </motion.button>
-            </div>
-          </motion.div>
         </div>
 
         {/* Bottom Bar */}
@@ -238,47 +186,6 @@ export const Footer = memo(function Footer() {
         >
           <div className="flex items-center gap-2 caption" style={{ color: 'rgba(0, 0, 0, 0.5)' }}>
             <span>© 2025 Korwin. Created by Austin Carson</span>
-          </div>
-
-          <div className="flex items-center gap-6 caption">
-            <a
-              href="#"
-              className="transition-smooth"
-              style={{ color: 'rgba(0, 0, 0, 0.5)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--action-primary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(0, 0, 0, 0.5)';
-              }}
-            >
-              Privacy
-            </a>
-            <a
-              href="#"
-              className="transition-smooth"
-              style={{ color: 'rgba(0, 0, 0, 0.5)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--action-primary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(0, 0, 0, 0.5)';
-              }}
-            >
-              Terms
-            </a>
-            <a
-              href="#"
-              className="transition-smooth"
-              style={{ color: 'rgba(0, 0, 0, 0.5)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--action-primary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'rgba(0, 0, 0, 0.5)' }}
-            >
-              Cookies
-            </a>
           </div>
         </motion.div>
       </div>

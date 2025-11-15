@@ -24,17 +24,17 @@ const ANIMATION_CONFIG = {
   desktop: {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
   mobile: {
-    initial: { opacity: 0, y: 8 },
+    initial: { opacity: 0, y: 6 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
   },
   reduced: {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
-    transition: { duration: 0.2 },
+    transition: { duration: 0.15 },
   },
 } as const;
 
@@ -116,12 +116,11 @@ export const BentoCard = memo(function BentoCard({
         border
         rounded-2xl
         transition-smooth
-        ${!isMobile ? 'will-change-transform' : ''}
         ${interactive ? 'cursor-pointer' : ''}
         ${className}
       `.trim();
     },
-    [span, interactive, className, isMobile]
+    [span, interactive, className]
   );
 
   const config = isMobile ? ANIMATION_CONFIG.mobile : ANIMATION_CONFIG.desktop;
