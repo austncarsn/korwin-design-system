@@ -1,10 +1,35 @@
 @import "tailwindcss";
 
-/* Google Fonts Import */
+/* Google Fonts Import with optimized loading */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Korwin Design System - Perfected v2.0 */
 @layer base {
+  /* Prevent FOUT (Flash of Unstyled Text) */
+  html {
+    font-display: swap;
+  }
+
+  /* Optimize initial rendering */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Prevent layout shifts during load */
+  body {
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Prevent animation glitches on page load */
+  .js-loading *,
+  .js-loading *:before,
+  .js-loading *:after {
+    animation-play-state: paused !important;
+    transition: none !important;
+  }
+
   :root {
     /* ========================================
        FOUNDATION COLORS - Museum Quality
@@ -445,8 +470,24 @@
 
   /* Selection styling */
   ::selection {
-    background-color: color-mix(in srgb, var(--action-primary) 25%, transparent);
+    background-color: color-mix(in srgb, var(--action-primary) 12%, transparent);
     color: var(--text-primary);
+  }
+
+  ::-moz-selection {
+    background-color: color-mix(in srgb, var(--action-primary) 12%, transparent);
+    color: var(--text-primary);
+  }
+
+  /* Code block selection - ultra subtle for readability */
+  .code-highlight-area ::selection {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #FAFAFA;
+  }
+
+  .code-highlight-area ::-moz-selection {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #FAFAFA;
   }
 
   /* Focus visible improvements */

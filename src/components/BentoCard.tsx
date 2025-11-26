@@ -86,25 +86,37 @@ export const BentoCard = memo(function BentoCard({
 
   // Render immediately - no scroll animations
   return (
-    <div
+    <motion.div
       ref={cardRef}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 0.5, 
+        delay: delay * 0.1,
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      whileHover={interactive ? { 
+        y: -8, 
+        scale: 1.01,
+        transition: { duration: 0.3 }
+      } : {}}
       style={{
-        // Single clean background - no stacking
+        // Enhanced gradient backgrounds
         background: isHovered && interactive
-          ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.04) 0%, rgba(99, 102, 241, 0.03) 100%)'
-          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 250, 0.95) 100%)',
+          ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.06) 0%, rgba(99, 102, 241, 0.04) 50%, rgba(245, 158, 11, 0.03) 100%)'
+          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.98) 100%)',
         borderColor: isHovered && interactive 
-          ? 'rgba(16, 185, 129, 0.2)' 
-          : 'rgba(0, 0, 0, 0.08)',
-        // Simplified shadow - single layer for performance
+          ? 'rgba(16, 185, 129, 0.3)' 
+          : 'rgba(0, 0, 0, 0.06)',
+        // Enhanced shadows with color tint
         boxShadow: isHovered && interactive
-          ? '0 8px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
-          : '0 2px 8px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          ? '0 12px 40px rgba(16, 185, 129, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.5)'
+          : '0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
         // Force GPU acceleration with translate3d
         transform: 'translate3d(0, 0, 0)',
         backfaceVisibility: 'hidden' as const,
-        // Smooth transitions only for hover
-        transition: 'background 0.2s ease-out, border-color 0.2s ease-out, box-shadow 0.2s ease-out',
+        willChange: interactive ? 'transform, box-shadow, border-color' : 'auto',
       }}
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
@@ -114,13 +126,33 @@ export const BentoCard = memo(function BentoCard({
       <div
         className="absolute inset-0 pointer-events-none mix-blend-overlay"
         style={{
-          opacity: isMobile ? 0.008 : 0.012,
+          opacity: isMobile ? 0.008 : 0.015,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
+      {/* Shimmer effect on hover */}
+      {interactive && (
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: isHovered ? [0, 0.3, 0] : 0,
+            x: isHovered ? ['0%', '100%'] : '0%',
+          }}
+          transition={{
+            opacity: { duration: 1.5, times: [0, 0.5, 1] },
+            x: { duration: 1.5, ease: 'easeInOut' },
+          }}
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%)',
+            width: '50%',
+          }}
+        />
+      )}
+
       {/* Content with proper z-index */}
       <div className="relative z-10 h-full p-4 sm:p-5 md:p-6 lg:p-8">{children}</div>
-    </div>
+    </motion.div>
   );
 });

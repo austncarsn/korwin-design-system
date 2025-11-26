@@ -14,7 +14,7 @@ const NAV_ITEMS: readonly NavItem[] = [
   { label: 'Colors', href: '#colors' },
   { label: 'Typography', href: '#typography' },
   { label: 'Spacing', href: '#spacing' },
-  { label: 'Components', href: '#components' },
+  { label: 'Components', href: '#buttons' },
   { label: 'Tokens', href: '#tokens' },
 ] as const;
 

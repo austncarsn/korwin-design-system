@@ -116,7 +116,7 @@ export const CodeBlock = memo(function CodeBlock({
         </div>
 
         {/* Code Content */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto code-highlight-area">
           <pre
             className="p-6 pr-24"
             style={{

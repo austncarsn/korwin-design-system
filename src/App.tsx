@@ -1,4 +1,4 @@
-import React, { useState, useMemo, lazy, Suspense } from 'react';
+import React, { useState, useMemo, lazy, Suspense, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { FloatingNav } from './components/FloatingNav';
@@ -35,19 +35,42 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
+// Prevent animation glitches on load
+function usePreventLoadFlash() {
+  useEffect(() => {
+    // Remove loading class after a short delay to allow initial render
+    const timer = setTimeout(() => {
+      document.body.classList.remove('js-loading');
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+}
+
 // Lazy load heavy sections for better initial load
 const LazyButtonsSection = lazy(() => import('./components/ButtonsSection').then(m => ({ default: m.ButtonsSection })));
 const LazyFormInputsSection = lazy(() => import('./components/FormInputsSection').then(m => ({ default: m.FormInputsSection })));
 const LazyCardsSection = lazy(() => import('./components/CardsSection').then(m => ({ default: m.CardsSection })));
 
-// Loading skeleton component
+// Optimized loading skeleton with no layout shift
 const SectionSkeleton = () => (
-  <div className="py-12 sm:py-16 md:py-20 lg:py-32 animate-pulse">
-    <div className="h-8 bg-gray-200 rounded w-1/3 mb-6" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
-    <div className="h-4 bg-gray-100 rounded w-2/3 mb-12" style={{ backgroundColor: 'var(--bg-muted)' }}></div>
+  <div className="py-12 sm:py-16 md:py-20 lg:py-32" style={{ minHeight: '400px' }}>
+    <div 
+      className="h-8 rounded w-1/3 mb-6 animate-pulse" 
+      style={{ backgroundColor: 'var(--bg-subtle)' }}
+    />
+    <div 
+      className="h-4 rounded w-2/3 mb-12 animate-pulse" 
+      style={{ backgroundColor: 'var(--bg-muted)' }}
+    />
     <div className="grid gap-6">
-      <div className="h-48 bg-gray-100 rounded-xl" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
-      <div className="h-48 bg-gray-100 rounded-xl" style={{ backgroundColor: 'var(--bg-subtle)' }}></div>
+      <div 
+        className="h-48 rounded-xl animate-pulse" 
+        style={{ backgroundColor: 'var(--bg-subtle)' }}
+      />
+      <div 
+        className="h-48 rounded-xl animate-pulse" 
+        style={{ backgroundColor: 'var(--bg-subtle)' }}
+      />
     </div>
   </div>
 );
@@ -208,6 +231,9 @@ const CODE_EXAMPLES = {
 export default function App() {
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
+  
+  // Prevent animation glitches on load
+  usePreventLoadFlash();
 
   // Memoize sections to prevent unnecessary re-renders
   const overviewSection = useMemo(() => (
@@ -765,10 +791,13 @@ export default function App() {
         {/* Typography Section */}
         <div className="py-8 sm:py-12 md:py-16 lg:py-32">
           <RevealSection id="typography">
-            <Section
+            <EditorialHeader
+              number="02"
+              eyebrow="FOUNDATION"
               title="Typography"
-              description="Our typography system features Instrument Serif for display text and Inter for body copy—creating a sophisticated editorial aesthetic with excellent readability across all sizes."
-            >
+              subtitle="Our typography system features Instrument Serif for display text and Inter for body copy—creating a sophisticated editorial aesthetic with excellent readability across all sizes."
+            />
+            <div className="mt-8 sm:mt-12 md:mt-16">
               {/* Font Family Labels */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12 pb-8 sm:pb-12 border-b" style={{ borderColor: 'var(--border-default)' }}>
                 <div className="space-y-3">
@@ -825,39 +854,38 @@ export default function App() {
               </div>
 
               <div className="space-y-4 sm:space-y-6 md:space-y-[var(--space-8)]">
-                <TypeSpecimen className="display-2xl" label="Display 2XL" example="The quick brown fox" specs="Instrument Serif · 80px / 76px · -3% · 400" />
-                <TypeSpecimen className="display-xl" label="Display XL" example="jumps over the lazy dog" specs="Instrument Serif · 64px / 64px · -2.5% · 400" />
-                <TypeSpecimen className="display-lg" label="Display L" example="The five boxing wizards" specs="Instrument Serif · 52px / 55px · -2% · 400" />
-                <TypeSpecimen className="display-md" label="Display M" example="jump quickly at the exam" specs="Instrument Serif · 44px / 48px · -1.5% · 400" />
-                <TypeSpecimen className="display-sm" label="Display S" example="Sphinx of black quartz" specs="Instrument Serif · 36px / 41px · -1% · 400" />
-                <TypeSpecimen element="h1" label="Heading 1" example="Pack my box with five" specs="Instrument Serif · 48px / 53px · -2% · 700" />
-                <TypeSpecimen element="h2" label="Heading 2" example="dozen liquor jugs" specs="Instrument Serif · 36px / 41px · -1.5% · 700" />
-                <TypeSpecimen element="h3" label="Heading 3" example="How vexingly quick daft zebras jump" specs="Inter · 28px / 35px · -1% · 600" />
-                <TypeSpecimen element="h4" label="Heading 4" example="The five boxing wizards jump quickly" specs="Inter · 22px / 29px · -0.5% · 600" />
-                <TypeSpecimen element="h5" label="Heading 5" example="Pack my box with five dozen liquor jugs" specs="Inter · 18px / 25px · -0.3% · 600" />
-                <TypeSpecimen element="h6" label="Heading 6" example="Sphinx of black quartz, judge my vow" specs="Inter · 16px / 24px · 0% · 600" />
-                <TypeSpecimen className="body-xl" label="Body XL" example="The quick brown fox jumps over the lazy dog and beyond the horizon." specs="Inter · 20px / 34px · -0.5% · 400" />
-                <TypeSpecimen className="body-lg" label="Body L" example="How vexingly quick daft zebras jump! The five boxing wizards leap." specs="Inter · 18px / 30px · -0.3% · 400" />
-                <TypeSpecimen className="body-md" label="Body M" example="Pack my box with five dozen liquor jugs. The quick brown fox jumps over the lazy dog." specs="Inter · 16px / 26px · 0% · 400" />
-                <TypeSpecimen className="body-sm" label="Body S" example="Sphinx of black quartz, judge my vow. Two driven jocks help fax my big quiz with elegant style." specs="Inter · 14px / 22px · 0% · 400" />
-                <TypeSpecimen className="body-xs" label="Body XS" example="The five boxing wizards jump quickly. Sphinx of black quartz judges my vow every time." specs="Inter · 13px / 20px · 0% · 400" />
-                <TypeSpecimen className="label-lg" label="Label L" example="QUICK BROWN FOX JUMPS" specs="Inter · 15px / 21px · +0.5% · 600" />
-                <TypeSpecimen className="label-md" label="Label M" example="PACK MY BOX WITH JUGS" specs="Inter · 14px / 19px · +1% · 600" />
-                <TypeSpecimen className="label-sm" label="Label S" example="SPHINX OF BLACK QUARTZ" specs="Inter · 13px / 17px · +1% · 600" />
-                <TypeSpecimen className="label-xs" label="Label XS" example="BOXING WIZARDS JUMP" specs="Inter · 12px / 15px · +1.5% · 600" />
-                <TypeSpecimen className="caption" label="Caption" example="The quick brown fox jumps over the lazy dog with grace and precision" specs="Inter · 13px / 18px · 0% · 400" />
+                <TypeSpecimen className="display-2xl" label="Display 2XL" example="It's not a bug, it's a feature request" specs="Instrument Serif · 80px / 76px · -3% · 400" />
+                <TypeSpecimen className="display-xl" label="Display XL" example="that senior devs call 'character'" specs="Instrument Serif · 64px / 64px · -2.5% · 400" />
+                <TypeSpecimen className="display-lg" label="Display L" example="Works on my machine ¯\\_(ツ)_/¯" specs="Instrument Serif · 52px / 55px · -2% · 400" />
+                <TypeSpecimen className="display-md" label="Display M" example="Naming things is the hardest problem" specs="Instrument Serif · 44px / 48px · -1.5% · 400" />
+                <TypeSpecimen className="display-sm" label="Display S" example="Client loved v2, wants v1 back" specs="Instrument Serif · 36px / 41px · -1% · 400" />
+                <TypeSpecimen element="h1" label="Heading 1" example="99 bugs in the code, take one down" specs="Instrument Serif · 48px / 53px · -2% · 700" />
+                <TypeSpecimen element="h2" label="Heading 2" example="127 bugs in the code" specs="Instrument Serif · 36px / 41px · -1.5% · 700" />
+                <TypeSpecimen element="h3" label="Heading 3" example="Designers want 3px. Engineers say 4px. War ensues." specs="Inter · 28px / 35px · -1% · 600" />
+                <TypeSpecimen element="h4" label="Heading 4" example="Spent 6 hours debugging. Typo in line 2." specs="Inter · 22px / 29px · -0.5% · 600" />
+                <TypeSpecimen element="h5" label="Heading 5" example="git commit -m 'fix stuff' — A love story" specs="Inter · 18px / 25px · -0.3% · 600" />
+                <TypeSpecimen element="h6" label="Heading 6" example="The code review that shall not be named" specs="Inter · 16px / 24px · 0% · 600" />
+                <TypeSpecimen className="body-xl" label="Body XL" example="My code is self-documenting. Translation: I was too lazy to write docs." specs="Inter · 20px / 34px · -0.5% · 400" />
+                <TypeSpecimen className="body-lg" label="Body L" example="Accessibility is important! Also me: div onClick everywhere." specs="Inter · 18px / 30px · -0.3% · 400" />
+                <TypeSpecimen className="body-md" label="Body M" example="PM: Can we add this small feature? Me: *Rewrites entire codebase*" specs="Inter · 16px / 26px · 0% · 400" />
+                <TypeSpecimen className="body-sm" label="Body S" example="Senior Dev: 'Just use flexbox.' Junior Dev: *Cries in float: left*" specs="Inter · 14px / 22px · 0% · 400" />
+                <TypeSpecimen className="caption" label="Caption" example="Last commit before vacation: 'YOLO, ship it' — Famous last words" specs="Inter · 12px / 18px · 0% · 400" />
+                <TypeSpecimen className="overline" label="Overline" example="DESIGN SYSTEM V2: NOW WITH 847 SHADES OF GRAY" specs="Inter · 11px / 16px · 15% · 600" />
               </div>
-            </Section>
+            </div>
           </RevealSection>
         </div>
 
         {/* Spacing Section */}
         <div className="py-8 sm:py-12 md:py-16 lg:py-32">
           <RevealSection id="spacing">
-            <Section
+            <EditorialHeader
+              number="03"
+              eyebrow="FOUNDATION"
               title="Spacing System"
-              description="A 4px-based spacing scale ensures visual rhythm and consistency across all components. Each step maintains proportional relationships for harmonious layouts."
-            >
+              subtitle="A 4px-based spacing scale ensures visual rhythm and consistency across all components. Each step maintains proportional relationships for harmonious layouts."
+            />
+            <div className="mt-8 sm:mt-12 md:mt-16">
               <div className="space-y-2 sm:space-y-3 md:space-y-[var(--space-4)]">
                 {SPACING_VALUES.map((space) => (
                   <div key={space.name} className="flex items-center gap-3 sm:gap-4 md:gap-[var(--space-6)]">
@@ -871,122 +899,7 @@ export default function App() {
                   </div>
                 ))}
               </div>
-            </Section>
-          </RevealSection>
-        </div>
-
-        {/* Components Section */}
-        <div className="py-8 sm:py-12 md:py-16 lg:py-32">
-          <RevealSection id="components">
-            <Section
-              title="Components"
-              description="Production-ready components with full state management, accessibility features, and consistent styling. Every component includes hover, active, disabled, and focus states."
-            >
-              <div className="space-y-8 sm:space-y-12 md:space-y-[var(--space-16)]">
-                {/* Buttons */}
-                <div>
-                  <h3 className="mb-4 sm:mb-6 md:mb-[var(--space-8)]">Buttons</h3>
-                  <div className="space-y-4 sm:space-y-6 md:space-y-[var(--space-8)]">
-                    <UIExample
-                      title="Button Variants"
-                      description="Three button styles for different hierarchy levels"
-                      code={CODE_EXAMPLES.button}
-                    >
-                      <div className="space-y-3 sm:space-y-[var(--space-4)]">
-                        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-[var(--space-4)]">
-                          {(['sm', 'md', 'lg'] as const).map((size) => (
-                            <DesignSystemButton key={`primary-${size}`} variant="primary" size={size}>
-                              Primary {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
-                            </DesignSystemButton>
-                          ))}
-                        </div>
-                        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-[var(--space-4)]">
-                          {(['sm', 'md', 'lg'] as const).map((size) => (
-                            <DesignSystemButton key={`secondary-${size}`} variant="secondary" size={size}>
-                              Secondary {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
-                            </DesignSystemButton>
-                          ))}
-                        </div>
-                        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-[var(--space-4)]">
-                          {(['sm', 'md', 'lg'] as const).map((size) => (
-                            <DesignSystemButton key={`ghost-${size}`} variant="ghost" size={size}>
-                              Ghost {size === 'sm' ? 'Small' : size === 'md' ? 'Medium' : 'Large'}
-                            </DesignSystemButton>
-                          ))}
-                        </div>
-                      </div>
-                    </UIExample>
-
-                    <UIExample title="Button States" description="All interactive states included">
-                      <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-[var(--space-4)]">
-                        <DesignSystemButton variant="primary">Default</DesignSystemButton>
-                        <DesignSystemButton variant="primary" loading={loading} onClick={() => setLoading(!loading)}>
-                          {loading ? 'Loading...' : 'Click to Load'}
-                        </DesignSystemButton>
-                        <DesignSystemButton variant="primary" disabled>
-                          Disabled
-                        </DesignSystemButton>
-                      </div>
-                    </UIExample>
-                  </div>
-                </div>
-
-                {/* Inputs */}
-                <div>
-                  <h3 className="mb-4 sm:mb-6 md:mb-[var(--space-8)]">Form Inputs</h3>
-                  <UIExample
-                    title="Text Input"
-                    description="Accessible form inputs with labels and helper text"
-                    code={CODE_EXAMPLES.input}
-                  >
-                    <div className="max-w-md space-y-4 sm:space-y-[var(--space-6)]">
-                      <DesignSystemInput
-                        label="Email Address"
-                        type="email"
-                        placeholder="you@example.com"
-                        helperText="We'll never share your email with anyone else"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                      />
-                      <DesignSystemInput
-                        label="Password"
-                        type="password"
-                        placeholder="Enter your password"
-                        error="Password must be at least 8 characters"
-                      />
-                      <DesignSystemInput label="Disabled Input" disabled value="This input is disabled" />
-                    </div>
-                  </UIExample>
-                </div>
-
-                {/* Cards */}
-                <div>
-                  <h3 className="mb-4 sm:mb-6 md:mb-[var(--space-8)]">Cards</h3>
-                  <UIExample title="Card Components" description="Flexible card layouts for content organization">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-[var(--space-6)]">
-                      <DesignSystemCard
-                        icon={<CheckCircle className="w-6 h-6" />}
-                        title="Success"
-                        description="Operation completed successfully"
-                        variant="success"
-                      />
-                      <DesignSystemCard
-                        icon={<AlertTriangle className="w-6 h-6" />}
-                        title="Warning"
-                        description="Please review these items"
-                        variant="warning"
-                      />
-                      <DesignSystemCard
-                        icon={<AlertCircle className="w-6 h-6" />}
-                        title="Error"
-                        description="Something went wrong"
-                        variant="error"
-                      />
-                    </div>
-                  </UIExample>
-                </div>
-              </div>
-            </Section>
+            </div>
           </RevealSection>
         </div>
 
@@ -1022,12 +935,15 @@ export default function App() {
         {/* Design Tokens Section */}
         <div className="py-8 sm:py-12 md:py-16 lg:py-32">
           <RevealSection id="tokens">
-            <Section
+            <EditorialHeader
+              number="07"
+              eyebrow="DEVELOPMENT"
               title="Design Tokens"
-              description="Export ready tokens in JSON format for seamless integration with your development workflow. Tokens are structured for easy consumption by any platform."
-            >
+              subtitle="Export ready tokens in JSON format for seamless integration with your development workflow. Tokens are structured for easy consumption by any platform."
+            />
+            <div className="mt-8 sm:mt-12 md:mt-16">
               <CodeBlock code={CODE_EXAMPLES.tokens} language="json" />
-            </Section>
+            </div>
           </RevealSection>
         </div>
       </main>
