@@ -687,16 +687,25 @@ export default function App() {
         backgroundColor: 'white',
         // Clip content to prevent overflow flashing
         overflow: 'clip',
+        position: 'relative',
+        zIndex: 10,
       }}>
-        {/* Overview Section */}
+        {/* Overview Section - White background */}
         <div className="py-8 sm:py-12 md:py-16 lg:py-32">
           {overviewSection}
         </div>
 
         <EditorialDivider variant="ornament" />
 
-        {/* Pull Quote */}
-        <div className="py-8 sm:py-12 md:py-16 lg:py-24">
+        {/* Pull Quote - Warm background */}
+        <div 
+          className="py-8 sm:py-12 md:py-16 lg:py-24 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
+          style={{
+            backgroundColor: '#FAFAF9',
+            borderTop: '1px solid rgba(16, 185, 129, 0.08)',
+            borderBottom: '1px solid rgba(16, 185, 129, 0.08)',
+          }}
+        >
           <PullQuote 
             quote="Excellence in design is not a destination but a continuous journey of refinement, attention to detail, and unwavering commitment to craft."
             author="Design Philosophy"
@@ -706,8 +715,25 @@ export default function App() {
 
         <EditorialDivider variant="accent" />
 
-        {/* Colors Section */}
-        <div className="py-8 sm:py-12 md:py-16 lg:py-32">
+        {/* Colors Section - White background with subtle top accent */}
+        <div 
+          className="py-8 sm:py-12 md:py-16 lg:py-32"
+          style={{
+            position: 'relative',
+          }}
+        >
+          {/* Emerald accent line */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: '-100vw',
+              right: '-100vw',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.2) 50%, transparent 100%)',
+            }}
+            aria-hidden="true"
+          />
           <RevealSection id="colors">
             <EditorialHeader
               number="01"
@@ -789,7 +815,27 @@ export default function App() {
         </div>
 
         {/* Typography Section */}
-        <div className="py-8 sm:py-12 md:py-16 lg:py-32">
+        <div 
+          className="py-8 sm:py-12 md:py-16 lg:py-32 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8"
+          style={{
+            backgroundColor: '#FAFAF9',
+            borderTop: '1px solid rgba(99, 102, 241, 0.06)',
+            borderBottom: '1px solid rgba(99, 102, 241, 0.06)',
+            position: 'relative',
+          }}
+        >
+          {/* Indigo accent gradient at top */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '2px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(99, 102, 241, 0.15) 50%, transparent 100%)',
+            }}
+            aria-hidden="true"
+          />
           <RevealSection id="typography">
             <EditorialHeader
               number="02"

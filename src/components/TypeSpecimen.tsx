@@ -23,32 +23,42 @@ export const TypeSpecimen = memo(function TypeSpecimen({
   const handleCopy = async () => {
     try {
       // Try modern Clipboard API first
-      if (navigator.clipboard && window.isSecureContext) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(example);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } else {
-        // Fallback for older browsers or non-secure contexts
-        const textArea = document.createElement('textarea');
-        textArea.value = example;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        
-        try {
-          const successful = document.execCommand('copy');
-          if (successful) {
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-          }
-        } catch (err) {
-          console.error('Fallback copy failed:', err);
-        } finally {
-          document.body.removeChild(textArea);
+        // Fallback to older method
+        fallbackCopy();
+      }
+    } catch (err) {
+      // Silently fallback on permission errors - this is expected behavior
+      fallbackCopy();
+    }
+  };
+
+  const fallbackCopy = () => {
+    try {
+      // Fallback for older browsers or non-secure contexts
+      const textArea = document.createElement('textarea');
+      textArea.value = example;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
         }
+      } catch (err) {
+        console.error('Fallback copy failed:', err);
+      } finally {
+        document.body.removeChild(textArea);
       }
     } catch (err) {
       console.error('Copy failed:', err);
@@ -123,8 +133,8 @@ export const TypeSpecimen = memo(function TypeSpecimen({
               color: copied ? 'var(--action-primary)' : 'var(--text-secondary)',
               fontSize: '12px',
               fontWeight: 500,
-              opacity: isHovered ? 1 : 0,
-              transform: isHovered ? 'translateY(0)' : 'translateY(-4px)',
+              opacity: 1, // Always visible
+              border: copied ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid transparent',
             }}
           >
             {copied ? (
@@ -141,14 +151,27 @@ export const TypeSpecimen = memo(function TypeSpecimen({
           </motion.button>
         </div>
 
-        {/* Right column - Example text */}
-        <div className="lg:col-span-9">
+        {/* Right column - Example text - Click to copy */}
+        <div 
+          className="lg:col-span-9 cursor-pointer"
+          onClick={handleCopy}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleCopy();
+            }
+          }}
+          aria-label={`Click to copy: ${example}`}
+        >
           <Element
             className={className}
             style={{
               color: 'var(--text-primary)',
               transition: 'all 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
               transform: isHovered ? 'translateX(8px)' : 'translateX(0)',
+              userSelect: 'none', // Prevent manual selection since we're handling copy
             }}
           >
             {example}

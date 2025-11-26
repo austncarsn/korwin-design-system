@@ -374,7 +374,36 @@
 
   body {
     min-height: 100vh;
+    position: relative;
     overflow-x: hidden;
+  }
+
+  body:before {
+    content: "";
+    pointer-events: none;
+    z-index: 1;
+    opacity: .015;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  body:after {
+    content: "";
+    pointer-events: none;
+    z-index: 1;
+    opacity: .02;
+    background-image: linear-gradient(to right, #10b98166 1px, #0000 1px), linear-gradient(#10b98166 1px, #0000 1px);
+    background-size: 4px 4px;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 
   .js-loading *, .js-loading :before, .js-loading :after {
@@ -672,25 +701,6 @@
     background-attachment: fixed;
     position: relative;
     transform: translateZ(0);
-  }
-
-  body:before {
-    content: "";
-    opacity: .015;
-    z-index: -1;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  @media (width <= 768px) {
-    body:before {
-      opacity: .008;
-    }
   }
 
   .transition-smooth {
@@ -1043,6 +1053,10 @@
     pointer-events: none;
   }
 
+  .visible {
+    visibility: visible;
+  }
+
   .absolute {
     position: absolute;
   }
@@ -1209,6 +1223,10 @@
 
   .row-span-2 {
     grid-row: span 2 / span 2;
+  }
+
+  .-mx-4 {
+    margin-inline: calc(var(--spacing) * -4);
   }
 
   .mx-2 {
@@ -2391,6 +2409,12 @@
   }
 
   @media (width >= 40rem) {
+    .sm\:-mx-6 {
+      margin-inline: calc(var(--spacing) * -6);
+    }
+  }
+
+  @media (width >= 40rem) {
     .sm\:mt-12 {
       margin-top: calc(var(--spacing) * 12);
     }
@@ -2833,6 +2857,12 @@
   @media (width >= 64rem) {
     .lg\:row-span-2 {
       grid-row: span 2 / span 2;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .lg\:-mx-8 {
+      margin-inline: calc(var(--spacing) * -8);
     }
   }
 

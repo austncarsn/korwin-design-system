@@ -16,11 +16,60 @@ export const CodeBlock = memo(function CodeBlock({
   showLineNumbers = false,
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    try {
+      // Try modern Clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(code);
+        setCopied(true);
+        setCopyError(false);
+        setTimeout(() => setCopied(false), 2000);
+      } else {
+        // Fallback to older method
+        fallbackCopyToClipboard(code);
+      }
+    } catch (err) {
+      // Silently fallback on permission errors - this is expected behavior
+      fallbackCopyToClipboard(code);
+    }
+  };
+
+  const fallbackCopyToClipboard = (text: string) => {
+    try {
+      // Create a temporary textarea element
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          setCopied(true);
+          setCopyError(false);
+          setTimeout(() => setCopied(false), 2000);
+        } else {
+          setCopyError(true);
+          setTimeout(() => setCopyError(false), 2000);
+        }
+      } catch (err) {
+        console.error('Fallback copy failed:', err);
+        setCopyError(true);
+        setTimeout(() => setCopyError(false), 2000);
+      }
+      
+      document.body.removeChild(textArea);
+    } catch (err) {
+      console.error('Could not copy text:', err);
+      setCopyError(true);
+      setTimeout(() => setCopyError(false), 2000);
+    }
   };
 
   const lines = code.split('\n');
@@ -96,6 +145,20 @@ export const CodeBlock = memo(function CodeBlock({
                   <Check className="w-4 h-4" style={{ color: 'var(--state-success)' }} />
                   <span className="caption" style={{ color: 'var(--state-success)' }}>
                     Copied!
+                  </span>
+                </motion.div>
+              ) : copyError ? (
+                <motion.div
+                  key="error"
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  exit={{ scale: 0, rotate: 180 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-2"
+                >
+                  <Copy className="w-4 h-4" />
+                  <span className="caption" style={{ color: 'var(--state-error)' }}>
+                    Error
                   </span>
                 </motion.div>
               ) : (
